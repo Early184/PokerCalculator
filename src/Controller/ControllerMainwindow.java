@@ -74,7 +74,6 @@ public class ControllerMainwindow {
                     
                     for(CardPanel cardPanel : deck.getCards().values()){
                         if(cardPanel.getImagePath().equals(clickedCard.getImagePath())){
-                            System.out.println(cardPanel.getComponentCount());
                             cardPanel.removeAll();
                             cardPanel.setSelected(false);
                             cardPanel.revalidate();

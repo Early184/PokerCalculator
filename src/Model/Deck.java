@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Deck {
     
     private HashMap <Integer, CardPanel> cards = new HashMap<>();
-    private int amountCards = cards.size();
+    private int amountCards = cards.keySet().size();
     private static Deck instance;
     
     private Deck(){

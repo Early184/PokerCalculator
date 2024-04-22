@@ -28,16 +28,16 @@ public class ControllerSubwindow {
     private CardContainer spades;
     private Deck deck;
     private Playground playground;
-    private PokerCalculator calc;
+    
     
     
 
-    public ControllerSubwindow(SubFrame subWindow, MainFrame mainWindow, Playground playground, ControllerMainwindow controllerMain, PokerCalculator calc){
+    public ControllerSubwindow(SubFrame subWindow, MainFrame mainWindow, Playground playground, ControllerMainwindow controllerMain){
         this.mainWindow = mainWindow;
         this.subWindow = subWindow;
         this.playground = playground;
         this.controllerMain = controllerMain;
-        this.calc = calc;
+       
         deck = Deck.getInstance();
         createCardContainers(subWindow);
 

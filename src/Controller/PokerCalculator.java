@@ -2,64 +2,115 @@ package Controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+
 import Model.CardPanel;
 import Model.Deck;
 import Model.Playground;
+import Model.PossibleStraightDraws;
 import View.CustomCompontents.CustomObserver;
 
 public class PokerCalculator implements CustomObserver{
     
     private Playground playground;
     private Deck deck;
-    private CardPanel[]cardsForCalc;
-    
+    private CardPanel[] cardsForCalc;
+    private PossibleStraightDraws possibleStraightDraws; 
     private int sizeDeck;
     private CardPanel[] realCardsOnPlayground;
     private int deckCount;
     private int[] outs;
     private int cardCount;
 
-
-    public PokerCalculator(){
-        this.playground = new Playground();
+    public PokerCalculator(Playground playground){
+        this.playground = playground;
         cardsForCalc = playground.getCardSlots(); 
         playground.addObserver(this);
         this.deck = Deck.getInstance();
         this.sizeDeck = deck.getAmountCards();
+        possibleStraightDraws = new PossibleStraightDraws();
 
         getActualCardsOnPlayground();
         sortPlaygroundByValues();
-        chanceStraight();
+        chanceStraight2();
+        findMissingCardsForStraight();
     }
-    
-    public void chanceStraight(){
-        // Identifiziere aufeinanderfolgende Karten und bestimme die "Outs"
-        outs = new int[0];
-        for(int i = 0; i < realCardsOnPlayground.length - 1; i++){
-            if(realCardsOnPlayground[i + 1].getValue() - realCardsOnPlayground[i].getValue() == 1){
-                int missingCard = realCardsOnPlayground[i].getValue() + 1;
-                System.out.println(missingCard);
-                outs = Arrays.copyOf(outs, outs.length + 1);
-                outs[outs.length - 1] = missingCard;
+    // STRAIGHT SECTION #######################################################################################################################STRAIGHT SECTION#######
+    public void chanceStraight2(){
+        possibleStraightDraws = new PossibleStraightDraws();
+        ArrayList<Integer> possibleDraws = possibleStraightDraws.getDrawSums();
+        int sumOfCardsOnPlayground = 0;
+        for(int i = 0; i < realCardsOnPlayground.length; i++){
+            int bitValue = possibleStraightDraws.getValueForCard(realCardsOnPlayground[i].getValue());
+            sumOfCardsOnPlayground += bitValue;
+        }
+        System.out.println("Summe der Karten auf dem Spielfeld:" + sumOfCardsOnPlayground);
+
+        // nächsthöhere Gesamtzahl zum erreichen einer Straße holen
+        int nextHigherValue = 0;
+        for(int i = 0; i < possibleDraws.size(); i++){
+            if(sumOfCardsOnPlayground < possibleDraws.get(i)){
+                nextHigherValue = possibleDraws.get(i);
+                break;
             }
         }
 
-        // cards geoordnet ausgeben lassen + outs
+        //Differenz zwischen Feld und nächster Kombination
+        if(nextHigherValue != 0){
+            int difference = nextHigherValue - sumOfCardsOnPlayground;
+            System.out.println(String.format("Nächsthöhere Gesamtzahl: %d, Differenz zu Playground: %d", nextHigherValue, difference));
+        }
 
-        for(int i = 0; i < outs.length; i++){
-            System.out.println("Outs:" + outs[i]);
-        }
-        
-        for(int i = 0; i < realCardsOnPlayground.length; i++){
-            System.out.println("Karte:" + realCardsOnPlayground[i].getValue() + realCardsOnPlayground[i].getSuit());
-        }
-        
     }
-
+    public void findMissingCardsForStraight() {
+        
+        ArrayList<int[]> combinations = possibleStraightDraws.getDrawList();
+    
+        // Erstellen einer Map zur Speicherung der Anzahl fehlender Karten für jede Kombination
+        HashMap<Integer, Integer> missingCardsCount = new HashMap<>();
+    
+        // Zählen der fehlenden Karten für jede Kombination
+        for (int[] combination : combinations) {
+            int missingCount = 0;
+            for (int cardValue : combination) {
+                if (!isCardPresent(cardValue)) {
+                    missingCount++;
+                }
+            }
+            missingCardsCount.put(sumCardValues(combination), missingCount);
+        }
+    
+        // Ausgabe der fehlenden Karten für jede Kombination
+        for (Map.Entry<Integer, Integer> entry : missingCardsCount.entrySet()) {
+            int combinationValue = entry.getKey();
+            int missingCount = entry.getValue();
+            System.out.println("Für die Kombination " + combinationValue + " fehlen noch "+ "also " + missingCount + " Karten.");
+        }
+    }
+    
+    // Überprüfen ob eine Karte auf dem Spielfeld vorhanden ist
+    private boolean isCardPresent(int cardValue) {
+        for (CardPanel cardPanel : realCardsOnPlayground) {
+            if (possibleStraightDraws.getValueForCard(cardPanel.getValue()) == cardValue) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    // Summe der Kartenwerte in einer Kombination berechnen
+    private int sumCardValues(int[] combination) {
+        int sum = 0;
+        for (int cardValue : combination) {
+            sum += cardValue;
+        }
+        return sum;
+    }
+    // STRAIGHT SECTION #######################################################################################################################STRAIGHT SECTION#######
     private void sortPlaygroundByValues() {
-        // Zähle die Anzahl der Karten im Playground
+        // Karten im Deck
         deckCount = sizeDeck - realCardsOnPlayground.length;
         System.out.println("Karten im Deck: " + deckCount);
 
@@ -86,6 +137,7 @@ public class PokerCalculator implements CustomObserver{
         }
         return realCardsOnPlayground;
     }
+
     public Playground getPlayground() {
         return playground;
     }
@@ -94,7 +146,8 @@ public class PokerCalculator implements CustomObserver{
     public void update() {
         getActualCardsOnPlayground();
         sortPlaygroundByValues();
-        chanceStraight();
+        chanceStraight2();
+        findMissingCardsForStraight();
     }
 
 }

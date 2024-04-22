@@ -2,21 +2,16 @@ package View.Mainwindow;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import View.Subwindow.SubFrame;
-
-
 
 
 public class MainFrame extends JFrame {
-    private JPanel mainPanel, eastPanel, westPanel;
+    private JPanel mainPanel;
     private CalcPanel calcPanel;
     private GamePanel gamePanel;
    
@@ -45,10 +40,6 @@ public class MainFrame extends JFrame {
         calcPanel = new CalcPanel();
         gamePanel = new GamePanel();
 
-
-
-
-        
        
         mainPanel.add(calcPanel, BorderLayout.SOUTH);
         mainPanel.add(gamePanel, BorderLayout.CENTER);
