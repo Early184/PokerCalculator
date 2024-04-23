@@ -95,8 +95,8 @@ public class PokerCalculator implements CustomObserver{
             
         }
         int nearestCombinationMissingCards =missingCardsCount.values().stream().sorted().min(Comparator.naturalOrder()).get();
-        List<Integer> nearestCombinationSum = missingCardsCount.entrySet().stream().filter(keySet -> keySet.getValue() == nearestCombinationMissingCards).collect(Collectors.toList());
-        System.out.println("Die Summe der Binären Zahlen der naheliegendsten Kombination ist: "+ nearestCombinationMissingCards);
+        Object[] nearestCombinationSum = missingCardsCount.entrySet().stream().filter(keySet -> keySet.getValue() == nearestCombinationMissingCards).toArray();
+        System.out.println("Die Summe der Binären Zahlen der naheliegendsten Kombination ist: "+nearestCombinationSum[0]+". Fehlende Karten: "+  nearestCombinationMissingCards);
         
         // System.out.println(missingCardsCount.values().stream().sorted().findFirst());
         // Optional<Integer> greatestChanceOptimal = missingCardsCount.values().stream().sorted().findFirst();
