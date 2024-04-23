@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import Model.CardPanel;
 import Model.Deck;
@@ -86,8 +89,22 @@ public class PokerCalculator implements CustomObserver{
         for (Map.Entry<Integer, Integer> entry : missingCardsCount.entrySet()) {
             int combinationValue = entry.getKey();
             int missingCount = entry.getValue();
+            
             System.out.println("Für die Kombination " + combinationValue + " fehlen noch "+ "also " + missingCount + " Karten.");
+            
+            
         }
+        int nearestCombinationMissingCards =missingCardsCount.values().stream().sorted().min(Comparator.naturalOrder()).get();
+        List<Integer> nearestCombinationSum = missingCardsCount.entrySet().stream().filter(keySet -> keySet.getValue() == nearestCombinationMissingCards).collect(Collectors.toList());
+        System.out.println("Die Summe der Binären Zahlen der naheliegendsten Kombination ist: "+ nearestCombinationMissingCards);
+        
+        // System.out.println(missingCardsCount.values().stream().sorted().findFirst());
+        // Optional<Integer> greatestChanceOptimal = missingCardsCount.values().stream().sorted().findFirst();
+        // int greatestChanceCards = greatestChanceOptimal.get();
+        // Object[] greatestChanceSums = missingCardsCount.entrySet().stream().filter(keySet -> keySet.getValue() == greatestChanceCards).toArray();
+        // int greatestChanceSum = (int)greatestChanceSums[0];
+        // System.out.println("Die wahrscheinlichste Kombination ist " + greatestChanceSum + ". Dort fehlen " + greatestChanceCards);
+        
     }
     
     // Überprüfen ob eine Karte auf dem Spielfeld vorhanden ist
