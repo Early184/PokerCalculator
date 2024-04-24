@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
 import Model.CardPanel;
 import Model.Deck;
 import Model.Playground;
@@ -24,7 +21,6 @@ public class PokerCalculator implements CustomObserver{
     private int sizeDeck;
     private CardPanel[] realCardsOnPlayground;
     private int deckCount;
-    private int[] outs;
     private int cardCount;
 
     public PokerCalculator(Playground playground){
@@ -39,18 +35,56 @@ public class PokerCalculator implements CustomObserver{
         sortPlaygroundByValues();
         chanceStraight2();
         findMissingCardsForStraight();
+        
     }
     // STRAIGHT SECTION #######################################################################################################################STRAIGHT SECTION#######
     public void chanceStraight2(){
         possibleStraightDraws = new PossibleStraightDraws();
         ArrayList<Integer> possibleDraws = possibleStraightDraws.getDrawSums();
+        
+        //Summe der Karten auf dem Spielfeld Binär
         int sumOfCardsOnPlayground = 0;
-        for(int i = 0; i < realCardsOnPlayground.length; i++){
-            int bitValue = possibleStraightDraws.getValueForCard(realCardsOnPlayground[i].getValue());
+        ArrayList <Integer> playgroundValues = new ArrayList<>();
+        //Playground Karten in ein Array geben als Binäre Werte
+        for (CardPanel cardPanel : realCardsOnPlayground) {
+            int bitValue = possibleStraightDraws.getValueForCard(cardPanel.getValue());
+            playgroundValues.add(bitValue);
             sumOfCardsOnPlayground += bitValue;
         }
+        //Ausgabe der fehlenden Karten für alle Kombinationen
+        ArrayList<ArrayList<Integer>> missingDrawCards = new ArrayList<>();
+        for(int[]combination : possibleStraightDraws.getDrawList()){
+            ArrayList<Integer> combinationsParsed = new ArrayList<>();
+            for(int number : combination){
+                combinationsParsed.add(number);
+            }
+            combinationsParsed.removeAll(playgroundValues);
+            missingDrawCards.add(combinationsParsed);
+            System.out.println("Überbleibende Karten für Kombi: " +combinationsParsed);
+        }
+       
         System.out.println("Summe der Karten auf dem Spielfeld:" + sumOfCardsOnPlayground);
+        System.out.println("Aktuell auf dem Feld: " + playgroundValues);
 
+        System.out.println(missingDrawCards.get(0));
+        ArrayList<Integer> smallestList = missingDrawCards.stream().min(Comparator.comparingInt(ArrayList::size)).orElse(null);
+        int outs = 0;
+        switch(smallestList.size()){
+            case 1 -> { outs = 4;
+                        chanceForStraightMath(outs);
+                      }
+            case 2 -> { outs = 8;
+                        chanceForStraightMath(outs);
+                        }     
+            case 3 -> { outs = 12;
+                        chanceForStraightMath(outs);
+                        }
+            case 4 -> { outs = 16;
+                        chanceForStraightMath(outs);
+                        }
+                      
+        }
+        
         // nächsthöhere Gesamtzahl zum erreichen einer Straße holen
         int nextHigherValue = 0;
         for(int i = 0; i < possibleDraws.size(); i++){
@@ -66,45 +100,68 @@ public class PokerCalculator implements CustomObserver{
             System.out.println(String.format("Nächsthöhere Gesamtzahl: %d, Differenz zu Playground: %d", nextHigherValue, difference));
         }
 
+        //Fehlende Karten für eine Straße bestimmen
+
     }
-    public void findMissingCardsForStraight() {
+    
+    public Double chanceForStraightMath(int outs){
         
+        double straightChance = ((double)outs/sizeDeck)*100;
+        System.out.println(straightChance + "%");
+        return straightChance;
+
+    }
+    
+    public void findMissingCardsForStraight() {
+        HashMap<Integer, Integer> missingCardsCount = countMissingCards();
+        displayMissingCards(missingCardsCount);
+        int nearestCombinationSum = findNearestCombination(missingCardsCount);
+        System.out.println("Die Summe der Binären Kombination welche am nähesten liegt ist: " + nearestCombinationSum + ". Anzahl fehlender Karten: " + missingCardsCount.get(nearestCombinationSum));
+    }
+
+    private HashMap<Integer, Integer> countMissingCards() {
         ArrayList<int[]> combinations = possibleStraightDraws.getDrawList();
-    
-        // Erstellen einer Map zur Speicherung der Anzahl fehlender Karten für jede Kombination
         HashMap<Integer, Integer> missingCardsCount = new HashMap<>();
-    
-        // Zählen der fehlenden Karten für jede Kombination
         for (int[] combination : combinations) {
-            int missingCount = 0;
-            for (int cardValue : combination) {
-                if (!isCardPresent(cardValue)) {
-                    missingCount++;
-                }
-            }
+            int missingCount = countMissingCardsInCombination(combination);
             missingCardsCount.put(sumCardValues(combination), missingCount);
         }
-    
-        // Ausgabe der fehlenden Karten für jede Kombination
+        return missingCardsCount;
+    }
+
+    private int countMissingCardsInCombination(int[] combination) {
+        int missingCount = 0;
+        for (int cardValue : combination) {
+            if (!isCardPresent(cardValue)) {
+                missingCount++;
+            }
+        }
+        return missingCount;
+    }
+
+    private void displayMissingCards(HashMap<Integer, Integer> missingCardsCount) {
         for (Map.Entry<Integer, Integer> entry : missingCardsCount.entrySet()) {
             int combinationValue = entry.getKey();
             int missingCount = entry.getValue();
-            
-            System.out.println("Für die Kombination " + combinationValue + " fehlen noch "+ "also " + missingCount + " Karten.");
-            
-            
+            System.out.println("Für die Kombination " + combinationValue + " fehlen " + missingCount + " Karten.");
         }
-        int nearestCombinationMissingCards =missingCardsCount.values().stream().sorted().min(Comparator.naturalOrder()).get();
-        Object[] nearestCombinationSum = missingCardsCount.entrySet().stream().filter(keySet -> keySet.getValue() == nearestCombinationMissingCards).toArray();
-        System.out.println("Die Summe der Binären Zahlen der naheliegendsten Kombination ist: "+nearestCombinationSum[0]+". Fehlende Karten: "+  nearestCombinationMissingCards);
-        
-        // System.out.println(missingCardsCount.values().stream().sorted().findFirst());
-        // Optional<Integer> greatestChanceOptimal = missingCardsCount.values().stream().sorted().findFirst();
-        // int greatestChanceCards = greatestChanceOptimal.get();
-        // Object[] greatestChanceSums = missingCardsCount.entrySet().stream().filter(keySet -> keySet.getValue() == greatestChanceCards).toArray();
-        // int greatestChanceSum = (int)greatestChanceSums[0];
-        // System.out.println("Die wahrscheinlichste Kombination ist " + greatestChanceSum + ". Dort fehlen " + greatestChanceCards);
-        
+    }
+
+    private int findNearestCombination(HashMap<Integer, Integer> missingCardsCount) {
+        int nearestCombinationMissingCardsCount = missingCardsCount.values().stream().min(Comparator.naturalOrder()).get();
+        int nearestCombinationSum = findNearestCombinationSum(missingCardsCount, nearestCombinationMissingCardsCount);
+        return nearestCombinationSum;
+    }
+
+    private int findNearestCombinationSum(HashMap<Integer, Integer> missingCardsCount, int nearestCombinationMissingCardsCount) {
+        int nearestCombinationSum = 0;
+        for (Map.Entry<Integer, Integer> entry : missingCardsCount.entrySet()) {
+            if (entry.getValue() == nearestCombinationMissingCardsCount) {
+                nearestCombinationSum = entry.getKey();
+                break;
+            }
+        }
+        return nearestCombinationSum;
     }
     
     // Überprüfen ob eine Karte auf dem Spielfeld vorhanden ist
@@ -125,6 +182,7 @@ public class PokerCalculator implements CustomObserver{
         }
         return sum;
     }
+
     // STRAIGHT SECTION #######################################################################################################################STRAIGHT SECTION#######
     private void sortPlaygroundByValues() {
         // Karten im Deck
@@ -165,6 +223,7 @@ public class PokerCalculator implements CustomObserver{
         sortPlaygroundByValues();
         chanceStraight2();
         findMissingCardsForStraight();
+        
     }
 
 }

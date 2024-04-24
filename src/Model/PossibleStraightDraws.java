@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PossibleStraightDraws {
     private ArrayList<Integer> drawSums;
@@ -12,7 +13,7 @@ public class PossibleStraightDraws {
         drawList = new ArrayList<>();
         drawSums = new ArrayList<>();
         generateCombinations();
-        generateCombinationCounts();
+        generateCombinationSums();
     }
     //Schleife zur Generierung der Kombinationen
     public void generateCombinations(){
@@ -41,16 +42,11 @@ public class PossibleStraightDraws {
             
         }
     }
-    // Schleife zur Generierung von der Summe der Kombinationen
-    public void generateCombinationCounts() {
-        for (int i = 0; i < drawList.size(); i++) { 
-            int[] combination = drawList.get(i);
-            int combinationValue = 0;
-
-            for (int j = 0; j < combination.length; j++) {
-                combinationValue += combination[j]; 
-            }
-            drawSums.add(combinationValue); 
+    // Summe jeder Kombination
+    public void generateCombinationSums() {
+        for (int[] combination : drawList) {
+            int sum = Arrays.stream(combination).sum();
+            drawSums.add(sum);
         }
     }
     
