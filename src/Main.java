@@ -13,6 +13,6 @@ public class Main {
         Playground playground = new Playground();
         ControllerMainwindow controllerMain = new ControllerMainwindow(frame, subFrame, playground);
         ControllerSubwindow controllerSub = new ControllerSubwindow(subFrame, frame, controllerMain.getPlayground(), controllerMain);
-        PokerCalculator calc = new PokerCalculator(playground);
+        PokerCalculator calc = new PokerCalculator(playground, frame);
     }
 }

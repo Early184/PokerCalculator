@@ -17,10 +17,10 @@ public class MainFrame extends JFrame {
    
     
     public MainFrame(){
-        setSize(1000, 800);
+        setSize(1000, 830);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Poker Planner");
-        setLocation(0, 240);
+        setLocation(0, 220);
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
         

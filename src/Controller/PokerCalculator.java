@@ -2,19 +2,29 @@ package Controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.swing.table.DefaultTableModel;
+
 import Model.CardPanel;
 import Model.Deck;
 import Model.Playground;
 import Model.PossibleStraightDraws;
 import View.CustomCompontents.CustomObserver;
+import View.Mainwindow.MainFrame;
 
 public class PokerCalculator implements CustomObserver{
     
     private Playground playground;
+    private MainFrame mainFrame;
     private Deck deck;
     private CardPanel[] cardsForCalc;
     private PossibleStraightDraws possibleStraightDraws; 
@@ -22,19 +32,46 @@ public class PokerCalculator implements CustomObserver{
     private CardPanel[] realCardsOnPlayground;
     private int deckCount;
     private int cardCount;
+    private DefaultTableModel defaultTableModelChances;
+    private DefaultTableModel defaultTableModelSzenarios;
+    private double straightChancePercentage;
+    private double laterStraightChancePercentage;
+    
 
-    public PokerCalculator(Playground playground){
+    public PokerCalculator(Playground playground, MainFrame frame){
         this.playground = playground;
+        this.mainFrame = frame;
         cardsForCalc = playground.getCardSlots(); 
         playground.addObserver(this);
         this.deck = Deck.getInstance();
         this.sizeDeck = deck.getAmountCards();
         possibleStraightDraws = new PossibleStraightDraws();
+        defaultTableModelChances = new DefaultTableModel(new Object[]{"Chance for Draws", "Percentage"}, 0);
+        defaultTableModelSzenarios = new DefaultTableModel(new Object[]{"Szenarios"}, 0);
+        mainFrame.getCalcPanel().getChanceForDrawTable().setModel(defaultTableModelChances);
+        mainFrame.getCalcPanel().getScenarioTable().setModel(defaultTableModelSzenarios);
+        straightChancePercentage = 0;
+        laterStraightChancePercentage = 0;
+
+        
 
         getActualCardsOnPlayground();
         sortPlaygroundByValues();
         chanceStraight2();
         findMissingCardsForStraight();
+        
+        setChanceForStraightOnPlaygroundTable();
+        setEmptyTableRow();
+        setChanceForFourOfAKindOnPlaygroundTable();
+        setChanceForThreeOfAKindOnPlaygroundTable();
+        setChanceForPairOnPlaygroundTable();
+        setEmptyTableRow();
+        setChanceForFourSoloTable();
+        setChanceForThreeSoloTable();
+        setChanceForPairSoloTable();
+        setEmptyTableRow();
+        setChanceForPairTotalTable();
+        
         
     }
     // STRAIGHT SECTION #######################################################################################################################STRAIGHT SECTION#######
@@ -66,25 +103,33 @@ public class PokerCalculator implements CustomObserver{
         System.out.println("Summe der Karten auf dem Spielfeld:" + sumOfCardsOnPlayground);
         System.out.println("Aktuell auf dem Feld: " + playgroundValues);
 
-        System.out.println(missingDrawCards.get(0));
+        //Ausgabe der Kombinationen mit der geringsten Anzahl Karten
         ArrayList<Integer> smallestList = missingDrawCards.stream().min(Comparator.comparingInt(ArrayList::size)).orElse(null);
-        int outs = 0;
-        switch(smallestList.size()){
-            case 1 -> { outs = 4;
-                        chanceForStraightMath(outs);
-                      }
-            case 2 -> { outs = 8;
-                        chanceForStraightMath(outs);
-                        }     
-            case 3 -> { outs = 12;
-                        chanceForStraightMath(outs);
-                        }
-            case 4 -> { outs = 16;
-                        chanceForStraightMath(outs);
-                        }
-                      
+        List<ArrayList<Integer>> smallestCombinations = missingDrawCards.stream().filter(draw -> draw.size() == smallestList.size()).collect(Collectors.toList());
+        Set<Integer> outSet = new HashSet<Integer>();
+        for(ArrayList<Integer>comb : smallestCombinations){
+            for(Integer number : comb){
+                outSet.add(number);
+            }
         }
+        System.out.println("Outs für momentane Karten und naheliegendste Kombination " + outSet);
+        int outs = outSet.size();
+        straightChancePercentage = chanceForCombinationsMath(outs, 4);
+        System.out.println("Chance:" + straightChancePercentage + "%");
+
         
+        List<ArrayList<Integer>> secondSmallestCombinations = missingDrawCards.stream().filter(draw -> draw.size() == smallestList.size()+1).collect(Collectors.toList());
+        Set<Integer> secondOutSet = new HashSet<Integer>();
+        for(ArrayList<Integer>comb : secondSmallestCombinations){
+            for(Integer number : comb){
+                secondOutSet.add(number);
+            }
+        }
+        System.out.println("Outs für zweit naheliegendste Kombination " + secondOutSet);
+        int outs2 = secondOutSet.size();
+        laterStraightChancePercentage = chanceForCombinationsMath(outs2, 4);
+        
+
         // nächsthöhere Gesamtzahl zum erreichen einer Straße holen
         int nextHigherValue = 0;
         for(int i = 0; i < possibleDraws.size(); i++){
@@ -104,13 +149,6 @@ public class PokerCalculator implements CustomObserver{
 
     }
     
-    public Double chanceForStraightMath(int outs){
-        
-        double straightChance = ((double)outs/sizeDeck)*100;
-        System.out.println(straightChance + "%");
-        return straightChance;
-
-    }
     
     public void findMissingCardsForStraight() {
         HashMap<Integer, Integer> missingCardsCount = countMissingCards();
@@ -184,7 +222,632 @@ public class PokerCalculator implements CustomObserver{
     }
 
     // STRAIGHT SECTION #######################################################################################################################STRAIGHT SECTION#######
-    private void sortPlaygroundByValues() {
+    // PAIR SECTION #######################################################################################################################PAIR SECTION#######
+    public double chanceForPairOnPlayground(){
+        double chanceForPairOnPlayground = 0;
+        int cardCount = 0;
+        int equalsCounter = 0;
+        boolean twoOfaKind = false;
+        
+        for(int i = 0; i < realCardsOnPlayground.length;i++){
+            int twoOfaKindInt = 0;
+            for(int j = 0; j < realCardsOnPlayground.length; j++){
+                if(realCardsOnPlayground[i].getValue() == realCardsOnPlayground[j].getValue()){
+                    equalsCounter++;
+                    cardCount++;
+                    twoOfaKindInt++;
+                    if(twoOfaKindInt == 2){
+                        twoOfaKind = true;
+                        break;
+                    }
+                }
+                
+            }
+            
+        }
+        switch (equalsCounter) {
+            case 6 -> {
+                if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                    chanceForPairOnPlayground =100.0;
+                    break;
+                }
+                chanceForPairOnPlayground =chanceForCombinationsMath(3, 6);
+            }
+            case 5 -> {
+                if (chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                    chanceForPairOnPlayground =100.0;
+                    break;
+                }
+                chanceForPairOnPlayground =chanceForCombinationsMath(3, 5);
+
+            }
+            case 4 -> {
+                if (chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                    chanceForPairOnPlayground =100.0;
+                    break;
+                }
+                chanceForPairOnPlayground =chanceForCombinationsMath(3, 4);
+                
+            }
+            
+            
+            case 3 -> {
+                if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                    chanceForPairOnPlayground =100.0;
+                    break;
+                }
+                chanceForPairOnPlayground =chanceForCombinationsMath(3, 3);
+            }
+            case 2 -> {
+                if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                    chanceForPairOnPlayground =100.0;
+                    break;
+                }
+                chanceForPairOnPlayground =chanceForCombinationsMath(3, 2);
+            }
+            case 1 -> {
+                if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                    chanceForPairOnPlayground =100.0;
+                    break;
+                }
+
+                if (cardCount == 7){
+                    chanceForPairOnPlayground = 0.0;
+                }else{
+                    chanceForPairOnPlayground =chanceForCombinationsMath(1, 3);
+                }
+            
+            }
+            case 0 -> {
+                if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){ 
+                    break;
+                }
+                if(cardCount == 7){
+                    chanceForPairOnPlayground = 0.0;
+                }else{
+                    chanceForPairOnPlayground =chanceForCombinationsMath(4, 1);
+                }
+                
+            }
+            default -> {
+                if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                    chanceForPairOnPlayground =100.0;
+                    break;
+                }
+            }
+        }
+        
+        return chanceForPairOnPlayground ;
+    }
+    public double chanceForThreeOfAKindOnPlayground(){
+        double chanceForThreeOfAKindOnPlayground = 0;
+        int equalsCounter = 0;
+        boolean threeOfAKindComb = false;
+        int cardCount = 0;
+        
+        for(int i = 0; i < realCardsOnPlayground.length;i++){
+            int threeOfAKind = 0;
+            cardCount++;
+            for(int j = 0; j < realCardsOnPlayground.length; j++){
+                if(realCardsOnPlayground[i].getValue() == realCardsOnPlayground[j].getValue()){
+                    equalsCounter++;
+                    threeOfAKind ++;
+                    
+                    if(threeOfAKind == 3){
+                        threeOfAKindComb = true;
+                        break;
+                    }
+                }
+                
+            }
+            
+        }
+        switch (equalsCounter) {
+            case 18 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }
+            }
+            case 17 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }
+            }
+            case 14 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }
+            }
+            case 13 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }else{
+                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(13, 1);
+                }
+            }
+            case 12 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }else{
+                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
+                }
+            }
+            case 11 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }
+            }
+            case 10 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }else{
+                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+                    }
+            }
+            case 9 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }else{
+                    
+                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(7, 1);
+                }
+            }
+            case 8 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }else{
+                    if(cardCount == 6){
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+                    }else if(cardCount == 4){
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
+                    }
+                    
+                }
+            }
+            case 7 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }else{
+                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(11, 1);
+                }
+            }
+            case 6 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }else{
+                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(8, 1);
+                }
+                
+                break;
+            }
+            case 5 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }else{
+                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(5, 1);
+                }
+            }
+            case 4 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }else{
+                    if(cardCount ==4){
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(12, 1);
+                    }else if(equalsCounter == 4){
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+                    }
+                    
+                }
+                
+                
+            }
+            case 3 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }else{
+                    if(cardCount ==3){
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(9, 1);
+                    }
+                }
+                
+            }
+            case 2 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                    break;
+                }else{
+                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
+                }
+            }
+            case 1 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }else{
+                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(3, 1);
+                }
+            }
+            case 0 -> {
+                if (chanceForThreeOfAKindOnPlayground >= 100.0){
+                    chanceForThreeOfAKindOnPlayground = 100.0;
+                }else{
+                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
+                }
+            }
+        }
+        
+        return chanceForThreeOfAKindOnPlayground;
+    }
+    public double chanceForFourOfAKindOnPlayground(){
+        double chanceForFourOfAKindOnPlayground = 0;
+        int equalsCounter = 0;
+        boolean fourOfAKindComb = false;
+        int cardCount = 0;
+        
+        for(int i = 0; i < realCardsOnPlayground.length;i++){
+            int fourOfAKind = 0;
+            cardCount++;
+            for(int j = 0; j < realCardsOnPlayground.length; j++){
+                if(realCardsOnPlayground[i].getValue() == realCardsOnPlayground[j].getValue()){
+                    equalsCounter++;
+                    fourOfAKind ++;
+                    
+                    if(fourOfAKind == 4){
+                        fourOfAKindComb = true;
+                        break;
+                    }
+                }
+                
+            }
+            
+        }
+        switch (equalsCounter) {
+            case 19 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }
+            }
+            case 18 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+                }
+            }
+            case 17 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }
+            }
+            case 16 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }
+            }
+            case 14 -> {
+                if(chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    if(cardCount == 6){
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(1, 1);
+                    }else{
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
+                    }
+                    
+                }
+            }
+            case 13 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(3, 1);
+                }
+            }
+            case 12 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    if(cardCount == 6){
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(1, 1);
+                    }else{
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
+                    }
+                    
+                }
+            }
+            case 11 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(7, 1);
+                }
+            }
+            case 10 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    
+                    if(cardCount == 6){
+                        chanceForFourOfAKindOnPlayground = 0;
+                    }else{
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
+                    }
+                    }
+            }
+            case 9 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    if(cardCount == 6){
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
+                    }else {
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(1, 1);
+                    }
+                }
+                    
+                
+            }
+            case 8 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    if(cardCount == 6){
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+                    }else if(cardCount == 4){
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
+                    }
+                    
+                }
+            }
+            case 7 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    if(cardCount == 7){
+                        chanceForFourOfAKindOnPlayground = 0;
+                    }else if(cardCount == 5){
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+                    }
+                    else{
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(11, 1);
+                    }
+                    
+                }
+            }
+            case 6 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }
+                else{
+                    if(cardCount == 6){
+                        chanceForFourOfAKindOnPlayground = 0;
+                    }else{
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(8, 1);
+                    }
+                    
+                }
+                
+                break;
+            }
+            case 5 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    if(cardCount ==5){
+                        chanceForFourOfAKindOnPlayground = 0;
+                    }else{
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(5, 1);
+                    }
+                    
+                }
+            }
+            case 4 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    if(cardCount ==4){
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(12, 1);
+                    }else if(equalsCounter == 4){
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+                    }
+                }
+                
+                
+            }
+            case 3 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    if(cardCount ==3){
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(9, 1);
+                    }
+                }
+                
+            }
+            case 2 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                    break;
+                }else{
+                    chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
+                }
+            }
+            case 1 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(3, 1);
+                }
+            }
+            case 0 -> {
+                if (chanceForFourOfAKindOnPlayground >= 100.0){
+                    chanceForFourOfAKindOnPlayground = 100.0;
+                }else{
+                    chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
+                }
+            }
+        }
+        
+        return chanceForFourOfAKindOnPlayground;
+    }
+    public double chanceForPairSolo(){
+        
+        List<Integer> values = new ArrayList<>();
+        for (CardPanel card : realCardsOnPlayground) {
+            values.add(card.getValue());
+        }
+        
+        Map<Integer, Integer> counts = new HashMap<>();
+        for (int value : values) {
+            counts.put(value, counts.getOrDefault(value, 0) + 1);
+        }
+        
+        Optional<Map.Entry<Integer, Integer>> entryWithMaxValue = counts.entrySet().stream()
+        .max(Map.Entry.comparingByValue());
+
+        if (entryWithMaxValue.isPresent()) {
+            Map.Entry<Integer, Integer> maxEntry = entryWithMaxValue.get();
+            int keyWithMaxValue = maxEntry.getKey();
+            int maxValue = maxEntry.getValue();
+            System.out.println("Die Zahl mit den meisten Vorkommen ist: " + keyWithMaxValue + " mit " + maxValue + " Vorkommen.");
+            if(maxValue== 2 || maxValue == 3 || maxValue == 4){
+                return 100.0;
+            }else{
+                return chanceForCombinationsMath(4 - maxValue, 1);
+            }
+            
+        } else {
+            System.out.println("Es gibt keine Zahlen auf dem Feld.");
+            return chanceForCombinationsMath(4,1);
+            
+        }
+        
+    }
+    public double chanceForThreeOfAKindSolo(){
+        List<Integer> values = new ArrayList<>();
+        for (CardPanel card : realCardsOnPlayground) {
+            values.add(card.getValue());
+        }
+        
+        Map<Integer, Integer> counts = new HashMap<>();
+        for (int value : values) {
+            counts.put(value, counts.getOrDefault(value, 0) + 1);
+        }
+        
+        Optional<Map.Entry<Integer, Integer>> entryWithMaxValue = counts.entrySet().stream()
+        .max(Map.Entry.comparingByValue());
+
+        if (entryWithMaxValue.isPresent()) {
+            Map.Entry<Integer, Integer> maxEntry = entryWithMaxValue.get();
+            int keyWithMaxValue = maxEntry.getKey();
+            int maxValue = maxEntry.getValue();
+            System.out.println("Die Zahl mit den meisten Vorkommen ist: " + keyWithMaxValue + " mit " + maxValue + " Vorkommen.");
+            if(maxValue == 3 || maxValue == 4){
+                return 100.0;
+            }else{
+                return chanceForCombinationsMath(4 - maxValue, 1);
+            }
+            
+        } else {
+            System.out.println("Es gibt keine Zahlen auf dem Feld.");
+            return chanceForCombinationsMath(4,1);
+            
+        }
+        
+    }
+    public double chanceForFourOfAKindSolo() {
+        List<Integer> values = new ArrayList<>();
+        for (CardPanel card : realCardsOnPlayground) {
+            values.add(card.getValue());
+        }
+        
+        Map<Integer, Integer> counts = new HashMap<>();
+        for (int value : values) {
+            counts.put(value, counts.getOrDefault(value, 0) + 1);
+        }
+        
+        Optional<Map.Entry<Integer, Integer>> entryWithMaxValue = counts.entrySet().stream()
+        .max(Map.Entry.comparingByValue());
+
+        if (entryWithMaxValue.isPresent()) {
+            Map.Entry<Integer, Integer> maxEntry = entryWithMaxValue.get();
+            int keyWithMaxValue = maxEntry.getKey();
+            int maxValue = maxEntry.getValue();
+            System.out.println("Die Zahl mit den meisten Vorkommen ist: " + keyWithMaxValue + " mit " + maxValue + " Vorkommen.");
+            if(maxValue== 4){
+                return 100.0;
+            }else{
+                return chanceForCombinationsMath(4 - maxValue, 1);
+            }
+            
+        } else {
+            System.out.println("Es gibt keine Zahlen auf dem Feld.");
+            return chanceForCombinationsMath(4,1);
+            
+        }
+    }
+    public double chanceForPairTotal() {
+        double chanceForPairOnPlayground = chanceForPairOnPlayground() / 100.0;
+        
+        double chanceForPairInDeck = 0;
+    
+        for (int i = 0; i < sizeDeck - realCardsOnPlayground.length; i++) {
+            int remainingCards = sizeDeck - realCardsOnPlayground.length - i;
+            // Berechne die Wahrscheinlichkeit, dass eine der verbleibenden Karten ein Paar bildet
+            chanceForPairInDeck += (chanceForCombinationsMath(1, remainingCards) / 100.0);
+        }
+    
+        // Gesamtwahrscheinlichkeit berechnen, unter Berücksichtigung der Überlappung
+        double totalChance = chanceForPairOnPlayground + chanceForPairInDeck - (chanceForPairOnPlayground * chanceForPairInDeck);
+        if(chanceForPairOnPlayground() == 100.0){
+            return totalChance = 100;
+        }
+        String formattedResult = String.format("%.2f", totalChance);
+
+        return Double.parseDouble(formattedResult.replace(",", ".")); // Runde auf zwei Dezimalstellen
+    }
+    
+    
+    // PAIR SECTION #######################################################################################################################PAIR SECTION#######
+    // TABLE SECTION #######################################################################################################################TABLE SECTION#######
+    public void setChanceForStraightOnPlaygroundTable() {
+        defaultTableModelChances.addRow(new Object[]{"Straight Chance for Board",straightChancePercentage + "%"});
+        defaultTableModelChances.addRow(new Object[]{"Later Straight for Board", laterStraightChancePercentage + "%"});
+    }
+    public void setChanceForPairSoloTable(){
+        defaultTableModelChances.addRow(new Object[]{"Pair Solo",chanceForPairSolo() + "%"});
+    }
+    public void setChanceForThreeSoloTable(){
+        defaultTableModelChances.addRow(new Object[]{"Triple Solo",chanceForThreeOfAKindSolo() + "%"});
+    }
+    public void setChanceForFourSoloTable(){
+        defaultTableModelChances.addRow(new Object[]{"Quad Solo",chanceForFourOfAKindSolo() + "%"});
+    }
+    public void setChanceForPairOnPlaygroundTable(){
+        defaultTableModelChances.addRow(new Object[]{"Pair Chance for Board", chanceForPairOnPlayground() + "%"});
+    }
+    public void setChanceForPairTotalTable(){
+        defaultTableModelChances.addRow(new Object[]{"Pair Chance Total", chanceForPairTotal() + "%"});
+    }
+    public void setChanceForThreeOfAKindOnPlaygroundTable(){
+        defaultTableModelChances.addRow(new Object[]{"Triple Chance for Board", chanceForThreeOfAKindOnPlayground() + "%"});
+    }
+    public void setChanceForFourOfAKindOnPlaygroundTable(){
+        defaultTableModelChances.addRow(new Object[]{"Quad Chance for Board", chanceForFourOfAKindOnPlayground() + "%"});
+    }
+    public void setEmptyTableRow(){
+        defaultTableModelChances.addRow(new Object[]{"", ""});
+    }
+    // TABLE SECTION #######################################################################################################################TABLE SECTION#######
+    public Double chanceForCombinationsMath(int outsCon, int multiplier){
+        int outs = outsCon * multiplier;
+        double straightChance = ((double)outs/deckCount)*100;
+        String formattedResult = String.format("%.2f", straightChance);
+        if(outs == 0){
+            return 100.0;
+        }
+        return Double.parseDouble(formattedResult.replace(",", "."));
+    }
+     private void sortPlaygroundByValues() {
         // Karten im Deck
         deckCount = sizeDeck - realCardsOnPlayground.length;
         System.out.println("Karten im Deck: " + deckCount);
@@ -216,13 +879,30 @@ public class PokerCalculator implements CustomObserver{
     public Playground getPlayground() {
         return playground;
     }
-
+    
     @Override
     public void update() {
         getActualCardsOnPlayground();
         sortPlaygroundByValues();
         chanceStraight2();
         findMissingCardsForStraight();
+        
+        defaultTableModelChances.setRowCount(0);
+        setChanceForStraightOnPlaygroundTable();
+        setEmptyTableRow();
+        setChanceForFourOfAKindOnPlaygroundTable();
+        setChanceForThreeOfAKindOnPlaygroundTable();
+        setChanceForPairOnPlaygroundTable();
+        setEmptyTableRow();
+        setChanceForFourSoloTable();
+        setChanceForThreeSoloTable();
+        setChanceForPairSoloTable();
+        setEmptyTableRow();
+        setChanceForPairTotalTable();
+        
+
+        mainFrame.getCalcPanel().revalidate();
+        mainFrame.getCalcPanel().repaint();
         
     }
 
