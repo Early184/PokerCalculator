@@ -45,7 +45,7 @@ public class PokerCalculator implements CustomObserver{
         playground.addObserver(this);
         this.deck = Deck.getInstance();
         this.sizeDeck = deck.getAmountCards();
-        possibleStraightDraws = new PossibleStraightDraws();
+        
         defaultTableModelChances = new DefaultTableModel(new Object[]{"Chance for Draws", "Percentage"}, 0);
         defaultTableModelSzenarios = new DefaultTableModel(new Object[]{"Szenarios"}, 0);
         mainFrame.getCalcPanel().getChanceForDrawTable().setModel(defaultTableModelChances);
@@ -59,8 +59,12 @@ public class PokerCalculator implements CustomObserver{
         sortPlaygroundByValues();
         chanceStraight2();
         findMissingCardsForStraight();
-        
+
+        setChanceForRoyalFlushOnPlaygroundTable();
+        setChanceForFullHouseOnPlaygroundTable();
+        setChanceForStraightFlushOnPlaygroundTable();
         setChanceForStraightOnPlaygroundTable();
+        setChanceForFlushOnPlaygroundTable();
         setEmptyTableRow();
         setChanceForFourOfAKindOnPlaygroundTable();
         setChanceForThreeOfAKindOnPlaygroundTable();
@@ -74,6 +78,178 @@ public class PokerCalculator implements CustomObserver{
         
         
     }
+    // ROYAL FLUSH SECTION #######################################################################################################################ROYAL FLUSH SECTION#######
+    public double chanceForRoyalFlushOnPlayground() {
+        double royalFlushChancePercentage = 0;
+       
+        // Listen For Straight
+        possibleStraightDraws = new PossibleStraightDraws();
+        ArrayList<Integer> possibleDraws = possibleStraightDraws.getDrawSumsRoyalFlush();
+        
+        //Map für die Playground Karten
+        ArrayList <Integer> playgroundValuesHearts = new ArrayList<>();
+        ArrayList <Integer> playgroundValuesSpades = new ArrayList<>();
+        ArrayList <Integer> playgroundValuesDiamonds = new ArrayList<>();
+        ArrayList <Integer> playgroundValuesClubs = new ArrayList<>();
+        //Playground Karten in ein Array geben als Binäre Werte
+        for (CardPanel cardPanel : realCardsOnPlayground) {
+            int bitValue = possibleStraightDraws.getValueForCard(cardPanel.getValue());
+            switch (cardPanel.getSuit()) {
+                case "heart": playgroundValuesHearts.add(bitValue); break;
+                case "spades": playgroundValuesSpades.add(bitValue); break;
+                case "diamonds": playgroundValuesDiamonds.add(bitValue); break;
+                case "clubs": playgroundValuesClubs.add(bitValue); break;
+            }
+        }
+        //Ausgabe der fehlenden Karten für alle Kombinationen
+        ArrayList<ArrayList<Integer>> missingDrawCards = new ArrayList<>();
+
+            int[] combination = possibleStraightDraws.getDrawListRoyalFlush().get(0);
+            ArrayList<Integer> combinationsParsedHearts = new ArrayList<>();
+            for(int number : combination){
+                combinationsParsedHearts.add(number);
+            }
+            combinationsParsedHearts.removeAll(playgroundValuesHearts);
+            missingDrawCards.add(combinationsParsedHearts);
+            
+        
+        
+            ArrayList<Integer> combinationsParsedSpades = new ArrayList<>();
+            for(int number : combination){
+                combinationsParsedSpades.add(number);
+            }
+            combinationsParsedSpades.removeAll(playgroundValuesSpades);
+            missingDrawCards.add(combinationsParsedSpades);
+            
+        
+        
+            ArrayList<Integer> combinationsParsedDiamonds = new ArrayList<>();
+            for(int number : combination){
+                combinationsParsedDiamonds.add(number);
+            }
+            combinationsParsedDiamonds.removeAll(playgroundValuesDiamonds);
+            missingDrawCards.add(combinationsParsedDiamonds);
+            
+        
+        
+            ArrayList<Integer> combinationsParsedClubs = new ArrayList<>();
+            for(int number : combination){
+                combinationsParsedClubs.add(number);
+            }
+            combinationsParsedClubs.removeAll(playgroundValuesClubs);
+            missingDrawCards.add(combinationsParsedClubs);
+            
+        
+        
+
+        //Ausgabe der Kombinationen mit der geringsten Anzahl Karten
+        ArrayList<Integer> smallestList = missingDrawCards.stream().min(Comparator.comparingInt(ArrayList::size)).orElse(null);
+        List<ArrayList<Integer>> smallestCombinations = missingDrawCards.stream().filter(draw -> draw.size() == smallestList.size()).collect(Collectors.toList());
+        Set<Integer> outSet = new HashSet<Integer>();
+        
+        for(ArrayList<Integer>comb : smallestCombinations){
+            for(Integer number : comb){
+                outSet.add(number);
+            }
+        }
+
+        int outs = outSet.size();
+        if(outs > 0 && cardCount == 7 || outs > 2 && cardCount == 6 || outs == 3 && cardCount == 5 ){
+            royalFlushChancePercentage = 0;
+        }else{
+            royalFlushChancePercentage = chanceForCombinationsMath(outs, 1);
+        }
+        
+       
+        return royalFlushChancePercentage;
+    }
+    // ROYAL FLUSH SECTION #######################################################################################################################ROYAL FLUSH SECTION#######
+    // STRAIGHT FLUSH SECTION #######################################################################################################################STRAIGHT FLUSH SECTION#######
+    public double chanceForStraightFlushOnPlayground() {
+        double straightFlushChancePercentage = 0;
+       
+        // Listen For Straight
+        possibleStraightDraws = new PossibleStraightDraws();
+        ArrayList<Integer> possibleDraws = possibleStraightDraws.getDrawSums();
+        
+        //Map für die Playground Karten
+        ArrayList <Integer> playgroundValuesHearts = new ArrayList<>();
+        ArrayList <Integer> playgroundValuesSpades = new ArrayList<>();
+        ArrayList <Integer> playgroundValuesDiamonds = new ArrayList<>();
+        ArrayList <Integer> playgroundValuesClubs = new ArrayList<>();
+        //Playground Karten in ein Array geben als Binäre Werte
+        for (CardPanel cardPanel : realCardsOnPlayground) {
+            int bitValue = possibleStraightDraws.getValueForCard(cardPanel.getValue());
+            switch (cardPanel.getSuit()) {
+                case "heart": playgroundValuesHearts.add(bitValue); break;
+                case "spades": playgroundValuesSpades.add(bitValue); break;
+                case "diamonds": playgroundValuesDiamonds.add(bitValue); break;
+                case "clubs": playgroundValuesClubs.add(bitValue); break;
+            }
+        }
+        //Ausgabe der fehlenden Karten für alle Kombinationen
+        ArrayList<ArrayList<Integer>> missingDrawCards = new ArrayList<>();
+
+        for(int[]combination : possibleStraightDraws.getDrawList()){
+            ArrayList<Integer> combinationsParsed = new ArrayList<>();
+            for(int number : combination){
+                combinationsParsed.add(number);
+            }
+            combinationsParsed.removeAll(playgroundValuesHearts);
+            missingDrawCards.add(combinationsParsed);
+            
+        }
+        for(int[]combination : possibleStraightDraws.getDrawList()){
+            ArrayList<Integer> combinationsParsed = new ArrayList<>();
+            for(int number : combination){
+                combinationsParsed.add(number);
+            }
+            combinationsParsed.removeAll(playgroundValuesSpades);
+            missingDrawCards.add(combinationsParsed);
+            
+        }
+        for(int[]combination : possibleStraightDraws.getDrawList()){
+            ArrayList<Integer> combinationsParsed = new ArrayList<>();
+            for(int number : combination){
+                combinationsParsed.add(number);
+            }
+            combinationsParsed.removeAll(playgroundValuesDiamonds);
+            missingDrawCards.add(combinationsParsed);
+            
+        }
+        for(int[]combination : possibleStraightDraws.getDrawList()){
+            ArrayList<Integer> combinationsParsed = new ArrayList<>();
+            for(int number : combination){
+                combinationsParsed.add(number);
+            }
+            combinationsParsed.removeAll(playgroundValuesClubs);
+            missingDrawCards.add(combinationsParsed);
+            
+        }
+        
+
+        //Ausgabe der Kombinationen mit der geringsten Anzahl Karten
+        ArrayList<Integer> smallestList = missingDrawCards.stream().min(Comparator.comparingInt(ArrayList::size)).orElse(null);
+        List<ArrayList<Integer>> smallestCombinations = missingDrawCards.stream().filter(draw -> draw.size() == smallestList.size()).collect(Collectors.toList());
+        Set<Integer> outSet = new HashSet<Integer>();
+        
+        for(ArrayList<Integer>comb : smallestCombinations){
+            for(Integer number : comb){
+                outSet.add(number);
+            }
+        }
+
+        int outs = outSet.size();
+        if(outs > 0 && cardCount == 7 || outs > 2 && cardCount == 6 || outs == 3 && cardCount == 5 ){
+            straightFlushChancePercentage = 0;
+        }else{
+            straightFlushChancePercentage = chanceForCombinationsMath(outs, 1);
+        }
+        
+       
+        return straightFlushChancePercentage;
+    }
+    // STRAIGHT FLUSH SECTION #######################################################################################################################STRAIGHT FLUSH SECTION#######
     // STRAIGHT SECTION #######################################################################################################################STRAIGHT SECTION#######
     public void chanceStraight2(){
         possibleStraightDraws = new PossibleStraightDraws();
@@ -114,7 +290,12 @@ public class PokerCalculator implements CustomObserver{
         }
         System.out.println("Outs für momentane Karten und naheliegendste Kombination " + outSet);
         int outs = outSet.size();
-        straightChancePercentage = chanceForCombinationsMath(outs, 4);
+        if(outs > 0 && cardCount == 7 || outs > 2 && cardCount == 6 || outs == 3 && cardCount == 5){
+            straightChancePercentage = 0;
+        }else{
+            straightChancePercentage = chanceForCombinationsMath(outs, 4);
+        }
+        
         System.out.println("Chance:" + straightChancePercentage + "%");
 
         
@@ -127,25 +308,12 @@ public class PokerCalculator implements CustomObserver{
         }
         System.out.println("Outs für zweit naheliegendste Kombination " + secondOutSet);
         int outs2 = secondOutSet.size();
+        if(outs > 0 && cardCount == 7 || outs > 2 && cardCount == 6 || outs == 3 && cardCount == 5){
+            straightChancePercentage = 0;
+        }else{
         laterStraightChancePercentage = chanceForCombinationsMath(outs2, 4);
+        }
         
-
-        // nächsthöhere Gesamtzahl zum erreichen einer Straße holen
-        int nextHigherValue = 0;
-        for(int i = 0; i < possibleDraws.size(); i++){
-            if(sumOfCardsOnPlayground < possibleDraws.get(i)){
-                nextHigherValue = possibleDraws.get(i);
-                break;
-            }
-        }
-
-        //Differenz zwischen Feld und nächster Kombination
-        if(nextHigherValue != 0){
-            int difference = nextHigherValue - sumOfCardsOnPlayground;
-            System.out.println(String.format("Nächsthöhere Gesamtzahl: %d, Differenz zu Playground: %d", nextHigherValue, difference));
-        }
-
-        //Fehlende Karten für eine Straße bestimmen
 
     }
     
@@ -222,6 +390,180 @@ public class PokerCalculator implements CustomObserver{
     }
 
     // STRAIGHT SECTION #######################################################################################################################STRAIGHT SECTION#######
+    // FullHouse SECTION #######################################################################################################################FullHouse SECTION#######
+    public double chanceForFullHouseOnPlayground(){
+        double chanceForFullHouseOnPlayground = 0;
+        int cardCount = 0;
+        int equalsCounter = 0;
+        boolean threeOfaKind = false;
+        boolean twoOfaKind = false;
+        
+        for(int i = 0; i < realCardsOnPlayground.length;i++){
+            int twoOfaKindInt = 0;
+            int threeOfaKindInt = 0;
+            for(int j = 0; j < realCardsOnPlayground.length; j++){
+                if(realCardsOnPlayground[i].getValue() == realCardsOnPlayground[j].getValue()){
+                    equalsCounter++;
+                    cardCount++;
+                    twoOfaKindInt++;
+                    threeOfaKindInt++;
+                    if(twoOfaKindInt == 2){
+                        twoOfaKind = true;
+                    }
+                    if(threeOfaKindInt == 3){
+                        threeOfaKind = true;
+                    }
+                }
+                
+            }
+        }
+        switch (equalsCounter) {
+            case 1 -> {
+                chanceForFullHouseOnPlayground = chanceForCombinationsMath(7, 1);
+            }
+            case 2 -> {
+                chanceForFullHouseOnPlayground = chanceForCombinationsMath(6, 1);
+            }
+            case 3 -> {
+                chanceForFullHouseOnPlayground = chanceForCombinationsMath(9, 1);
+            }
+            case 4 -> {
+                if(twoOfaKind){
+                    chanceForFullHouseOnPlayground =chanceForCombinationsMath(6,1);
+                }else{
+                    chanceForFullHouseOnPlayground = chanceForCombinationsMath(4, 3);
+                }
+                
+            }
+            
+            case 5 -> {
+                if(twoOfaKind){
+                    chanceForFullHouseOnPlayground =chanceForCombinationsMath(5,1);
+                }else{
+                    chanceForFullHouseOnPlayground = 0;
+                }
+            }
+            case 6 -> {
+                if(twoOfaKind){
+                    chanceForFullHouseOnPlayground =chanceForCombinationsMath(8,1);
+                }else{
+                    chanceForFullHouseOnPlayground = 0;
+                }
+            }
+            case 7 -> {
+                if(twoOfaKind){
+                    chanceForFullHouseOnPlayground =chanceForCombinationsMath(3,3);
+                }else{
+                    chanceForFullHouseOnPlayground = 0;
+                }
+            }
+            case 8 -> {
+                if(twoOfaKind && cardCount ==4){
+                    chanceForFullHouseOnPlayground = chanceForCombinationsMath(4, 1);
+                }else if(twoOfaKind && cardCount ==6){
+                    chanceForFullHouseOnPlayground = 0;
+                }else{
+                    chanceForFullHouseOnPlayground = 0;
+                }
+            }
+            case 9 -> {
+                if(threeOfaKind){
+                    chanceForFullHouseOnPlayground =chanceForCombinationsMath(2,4);
+                }else if(twoOfaKind){
+                    chanceForFullHouseOnPlayground =chanceForCombinationsMath(4,1);
+                }else{
+                    chanceForFullHouseOnPlayground = 0;
+                }
+            }
+            case 10 -> {
+                if(threeOfaKind){
+                    chanceForFullHouseOnPlayground =chanceForCombinationsMath(3,1);
+                }else if(twoOfaKind){
+                    chanceForFullHouseOnPlayground =chanceForCombinationsMath(4,1);
+                }
+                else{
+                    chanceForFullHouseOnPlayground = 0;
+                }
+            }
+            case 11 -> {
+                if(threeOfaKind){
+                    chanceForFullHouseOnPlayground =chanceForCombinationsMath(6,1);
+                }else{
+                    chanceForFullHouseOnPlayground = 0;
+                }
+            }
+            case 12 -> {
+                if(threeOfaKind && cardCount == 6){
+                    chanceForFullHouseOnPlayground = chanceForCombinationsMath(3, 3);
+                }else if(threeOfaKind){
+                    chanceForFullHouseOnPlayground =chanceForCombinationsMath(9,2);
+                }
+                else {
+                    chanceForFullHouseOnPlayground = 0;
+                }
+            }
+            case 13 -> {
+                if(threeOfaKind && cardCount == 5){
+                    chanceForFullHouseOnPlayground = 100;
+                }
+                else{  
+                    chanceForFullHouseOnPlayground = 0;
+                }
+            }
+            default -> {
+                chanceForFullHouseOnPlayground = chanceForCombinationsMath(8, 1);
+            }
+        }
+        return chanceForFullHouseOnPlayground;
+    }
+    // FullHouse SECTION #######################################################################################################################FullHouse SECTION#######
+    // FLUSH SECTION #######################################################################################################################FLUSH SECTION#######
+    public double chanceForFlushOnPlayground(){
+        double chanceForFlushOnPlayground = 0;
+        ArrayList<String> playgroundCardSuits = new ArrayList<>();
+        int countSpades = 0;
+        int countHearts = 0;
+        int countDiamonds = 0;
+        int countClubs = 0;
+
+        for(int i = 0; i < realCardsOnPlayground.length; i++){
+            playgroundCardSuits.add(realCardsOnPlayground[i].getSuit());
+        }
+        for(String suit : playgroundCardSuits){
+            if(suit.equals("spades")){
+                countSpades++;
+            }else if(suit.equals("heart")){
+                countHearts++;
+            }else if(suit.equals("diamonds")){
+                countDiamonds++;
+            }else if(suit.equals("clubs")){
+                countClubs++;
+            }
+        }
+        Map <String, Integer> counts = new HashMap<String, Integer>();
+        counts.put("Spades", countSpades);
+        counts.put("Hearts", countHearts);
+        counts.put("Diamonds", countDiamonds);
+        counts.put("Clubs", countClubs);
+
+        Optional<Map.Entry<String, Integer>> suitWithMaxValue = counts.entrySet().stream()
+        .max(Map.Entry.comparingByValue());
+
+        int maxValue = suitWithMaxValue.map(Map.Entry::getValue).orElse(0);
+
+        switch (maxValue) {
+            case 5 -> chanceForFlushOnPlayground = 100;
+            case 4 -> chanceForFlushOnPlayground = (realCardsOnPlayground.length == 7) ? 0 : chanceForCombinationsMath(9, 1);
+            case 3 -> chanceForFlushOnPlayground = (realCardsOnPlayground.length >= 6) ? 0 : chanceForCombinationsMath(10, 1);
+            case 2 -> chanceForFlushOnPlayground = (realCardsOnPlayground.length >= 5) ? 0 : chanceForCombinationsMath(11, 1);
+            case 1 -> chanceForFlushOnPlayground = (realCardsOnPlayground.length >= 4) ? 0 : chanceForCombinationsMath(12, 1);
+            case 0 -> chanceForFlushOnPlayground = chanceForCombinationsMath(13, 1);
+            default -> chanceForFlushOnPlayground = chanceForCombinationsMath(13, 1);
+        }
+
+        return chanceForFlushOnPlayground;
+    }
+    // FLUSH SECTION #######################################################################################################################FLUSH SECTION#######
     // PAIR SECTION #######################################################################################################################PAIR SECTION#######
     public double chanceForPairOnPlayground(){
         double chanceForPairOnPlayground = 0;
@@ -401,7 +743,6 @@ public class PokerCalculator implements CustomObserver{
                     }else if(cardCount == 4){
                         chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
                     }
-                    
                 }
             }
             case 7 -> {
@@ -417,13 +758,17 @@ public class PokerCalculator implements CustomObserver{
                 }else{
                     chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(8, 1);
                 }
-                
                 break;
             }
             case 5 -> {
                 if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
                     chanceForThreeOfAKindOnPlayground = 100.0;
                 }else{
+                    if(cardCount == 3){
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(5, 1);
+                    }else if(cardCount == 5){
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(3, 1);
+                    }
                     chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(5, 1);
                 }
             }
@@ -438,8 +783,6 @@ public class PokerCalculator implements CustomObserver{
                     }
                     
                 }
-                
-                
             }
             case 3 -> {
                 if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
@@ -714,13 +1057,11 @@ public class PokerCalculator implements CustomObserver{
             }else{
                 return chanceForCombinationsMath(4 - maxValue, 1);
             }
-            
         } else {
             System.out.println("Es gibt keine Zahlen auf dem Feld.");
             return chanceForCombinationsMath(4,1);
             
         }
-        
     }
     public double chanceForThreeOfAKindSolo(){
         List<Integer> values = new ArrayList<>();
@@ -805,10 +1146,20 @@ public class PokerCalculator implements CustomObserver{
 
         return Double.parseDouble(formattedResult.replace(",", ".")); // Runde auf zwei Dezimalstellen
     }
-    
-    
     // PAIR SECTION #######################################################################################################################PAIR SECTION#######
     // TABLE SECTION #######################################################################################################################TABLE SECTION#######
+    public void setChanceForRoyalFlushOnPlaygroundTable(){
+        defaultTableModelChances.addRow(new Object[]{"Royal Flush Chance for Board", chanceForRoyalFlushOnPlayground() + "%"});
+    }
+    public void setChanceForFullHouseOnPlaygroundTable() {
+        defaultTableModelChances.addRow(new Object[]{"Full House Chance for Board", chanceForFullHouseOnPlayground() + "%"});
+    }
+    public void setChanceForStraightFlushOnPlaygroundTable(){
+        defaultTableModelChances.addRow(new Object[]{"Straight Flush Chance for Board", chanceForStraightFlushOnPlayground() + "%"});
+    }
+    public void setChanceForFlushOnPlaygroundTable(){
+        defaultTableModelChances.addRow(new Object[]{"Flush Chance for Board", chanceForFlushOnPlayground()+ "%"});
+    }
     public void setChanceForStraightOnPlaygroundTable() {
         defaultTableModelChances.addRow(new Object[]{"Straight Chance for Board",straightChancePercentage + "%"});
         defaultTableModelChances.addRow(new Object[]{"Later Straight for Board", laterStraightChancePercentage + "%"});
@@ -888,7 +1239,12 @@ public class PokerCalculator implements CustomObserver{
         findMissingCardsForStraight();
         
         defaultTableModelChances.setRowCount(0);
+        
+        setChanceForRoyalFlushOnPlaygroundTable();
+        setChanceForFullHouseOnPlaygroundTable();
+        setChanceForStraightFlushOnPlaygroundTable();
         setChanceForStraightOnPlaygroundTable();
+        setChanceForFlushOnPlaygroundTable();
         setEmptyTableRow();
         setChanceForFourOfAKindOnPlaygroundTable();
         setChanceForThreeOfAKindOnPlaygroundTable();

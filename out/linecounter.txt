@@ -570,3 +570,120 @@ src\View\Mainwindow\MainFrame.java, code is 41, comment is 0, blank is 16.
 src\View\Subwindow\CardContainer.java, code is 11, comment is 1, blank is 10.
 src\View\Subwindow\SubFrame.java, code is 113, comment is 0, blank is 41.
 ===============================================================================
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2024-05-03 20:43:21
+count workspace : c:\Users\elias\Desktop\PokerCalcGit\PokerCalculator
+total files : 98
+total code lines : 1984
+total comment lines : 74
+total blank lines : 417
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |            .md|             10|              1|              8|   0.50|
+   |     .stackdump|             40|              0|              0|    2.0|
+   |          .java|           1934|             73|            409|     97|
+   -------------------------------------------------------------------------
+bash.exe.stackdump, code is 40, comment is 0, blank is 0.
+bin\Controller\ControllerMainwindow$1.class, it is a binary file.
+bin\Controller\ControllerMainwindow.class, it is a binary file.
+bin\Controller\ControllerSubwindow$1$1.class, it is a binary file.
+bin\Controller\ControllerSubwindow$1.class, it is a binary file.
+bin\Controller\ControllerSubwindow$2.class, it is a binary file.
+bin\Controller\ControllerSubwindow.class, it is a binary file.
+bin\Controller\PokerCalculator.class, it is a binary file.
+bin\Main.class, it is a binary file.
+bin\Model\Card.class, it is a binary file.
+bin\Model\CardPanel.class, it is a binary file.
+bin\Model\Deck.class, it is a binary file.
+bin\Model\Playground.class, it is a binary file.
+bin\View\CustomCompontents\CustomObserver.class, it is a binary file.
+bin\View\Images\CardImages\10clubs.png, it is a binary file.
+bin\View\Images\CardImages\10diamonds.png, it is a binary file.
+bin\View\Images\CardImages\10heart.png, it is a binary file.
+bin\View\Images\CardImages\10spades.png, it is a binary file.
+bin\View\Images\CardImages\11clubs.png, it is a binary file.
+bin\View\Images\CardImages\11diamonds.png, it is a binary file.
+bin\View\Images\CardImages\11heart.png, it is a binary file.
+bin\View\Images\CardImages\11spades.png, it is a binary file.
+bin\View\Images\CardImages\12clubs.png, it is a binary file.
+bin\View\Images\CardImages\12diamonds.png, it is a binary file.
+bin\View\Images\CardImages\12heart.png, it is a binary file.
+README.md, code is 10, comment is 1, blank is 8.
+src\Controller\ControllerMainwindow.java, code is 81, comment is 0, blank is 40.
+src\Controller\ControllerSubwindow.java, code is 218, comment is 24, blank is 76.
+src\Controller\PokerCalculator.java, code is 1020, comment is 31, blank is 124.
+src\Main.java, code is 16, comment is 0, blank is 2.
+src\Model\Card.java, code is 22, comment is 0, blank is 12.
+src\Model\CardEnum.java, code is 23, comment is 0, blank is 5.
+src\Model\CardPanel.java, code is 74, comment is 0, blank is 9.
+src\Model\Deck.java, code is 46, comment is 0, blank is 20.
+src\Model\Playground.java, code is 87, comment is 1, blank is 19.
+src\Model\PossibleStraightDraws.java, code is 80, comment is 16, blank is 9.
+src\View\CustomCompontents\CustomObserver.java, code is 4, comment is 0, blank is 1.
+src\View\Images\CardImages\10clubs.png, it is a binary file.
+src\View\Images\CardImages\10diamonds.png, it is a binary file.
+src\View\Images\CardImages\10heart.png, it is a binary file.
+src\View\Images\CardImages\10spades.png, it is a binary file.
+src\View\Images\CardImages\11clubs.png, it is a binary file.
+src\View\Images\CardImages\11diamonds.png, it is a binary file.
+src\View\Images\CardImages\11heart.png, it is a binary file.
+src\View\Images\CardImages\11spades.png, it is a binary file.
+src\View\Images\CardImages\12clubs.png, it is a binary file.
+src\View\Images\CardImages\12diamonds.png, it is a binary file.
+src\View\Images\CardImages\12heart.png, it is a binary file.
+src\View\Images\CardImages\12spades.png, it is a binary file.
+src\View\Images\CardImages\13clubs.png, it is a binary file.
+src\View\Images\CardImages\13diamonds.png, it is a binary file.
+src\View\Images\CardImages\13heart.png, it is a binary file.
+src\View\Images\CardImages\13spades.png, it is a binary file.
+src\View\Images\CardImages\1clubs.png, it is a binary file.
+src\View\Images\CardImages\1diamonds.png, it is a binary file.
+src\View\Images\CardImages\1heart.png, it is a binary file.
+src\View\Images\CardImages\1spades.png, it is a binary file.
+src\View\Images\CardImages\2clubs.png, it is a binary file.
+src\View\Images\CardImages\2diamonds.png, it is a binary file.
+src\View\Images\CardImages\2heart.png, it is a binary file.
+src\View\Images\CardImages\2spades.png, it is a binary file.
+src\View\Images\CardImages\3clubs.png, it is a binary file.
+src\View\Images\CardImages\3diamonds.png, it is a binary file.
+src\View\Images\CardImages\3heart.png, it is a binary file.
+src\View\Images\CardImages\3spades.png, it is a binary file.
+src\View\Images\CardImages\4clubs.png, it is a binary file.
+src\View\Images\CardImages\4diamonds.png, it is a binary file.
+src\View\Images\CardImages\4heart.png, it is a binary file.
+src\View\Images\CardImages\4spades.png, it is a binary file.
+src\View\Images\CardImages\5clubs.png, it is a binary file.
+src\View\Images\CardImages\5diamonds.png, it is a binary file.
+src\View\Images\CardImages\5heart.png, it is a binary file.
+src\View\Images\CardImages\5spades.png, it is a binary file.
+src\View\Images\CardImages\6clubs.png, it is a binary file.
+src\View\Images\CardImages\6diamonds.png, it is a binary file.
+src\View\Images\CardImages\6heart.png, it is a binary file.
+src\View\Images\CardImages\6spades.png, it is a binary file.
+src\View\Images\CardImages\7clubs.png, it is a binary file.
+src\View\Images\CardImages\7diamonds.png, it is a binary file.
+src\View\Images\CardImages\7heart.png, it is a binary file.
+src\View\Images\CardImages\7spades.png, it is a binary file.
+src\View\Images\CardImages\8clubs.png, it is a binary file.
+src\View\Images\CardImages\8diamonds.png, it is a binary file.
+src\View\Images\CardImages\8heart.png, it is a binary file.
+src\View\Images\CardImages\8spades.png, it is a binary file.
+src\View\Images\CardImages\9clubs.png, it is a binary file.
+src\View\Images\CardImages\9diamonds.png, it is a binary file.
+src\View\Images\CardImages\9heart.png, it is a binary file.
+src\View\Images\CardImages\9spades.png, it is a binary file.
+src\View\Images\pokerGreen.jpg, it is a binary file.
+src\View\Images\resetHovered.png, it is a binary file.
+src\View\Images\resetNormal.png, it is a binary file.
+src\View\Images\resetPressed.png, it is a binary file.
+src\View\Mainwindow\CalcPanel.java, code is 66, comment is 0, blank is 13.
+src\View\Mainwindow\GamePanel.java, code is 32, comment is 0, blank is 12.
+src\View\Mainwindow\MainFrame.java, code is 41, comment is 0, blank is 16.
+src\View\Subwindow\CardContainer.java, code is 11, comment is 1, blank is 10.
+src\View\Subwindow\SubFrame.java, code is 113, comment is 0, blank is 41.
+===============================================================================

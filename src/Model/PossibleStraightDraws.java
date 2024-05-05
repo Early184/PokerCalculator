@@ -4,19 +4,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PossibleStraightDraws {
-    private ArrayList<Integer> drawSums;
-    private ArrayList<int[]> drawList; 
+    private ArrayList<Integer> drawSums, drawSumsRoyalFlush;
+    private ArrayList<int[]> drawList, drawListRoyalFlush; 
 
     
     
+
     public PossibleStraightDraws(){
         drawList = new ArrayList<>();
         drawSums = new ArrayList<>();
-        generateCombinations();
+        drawListRoyalFlush = new ArrayList<>();
+        drawSumsRoyalFlush = new ArrayList<>();
+        generateCombinationsStraight();
         generateCombinationSums();
+        generateCombinationsRoyalFlush();
+        generateCombinationSumsRoyalFlush();
     }
     //Schleife zur Generierung der Kombinationen
-    public void generateCombinations(){
+    public void generateCombinationsStraight(){
            for (int i = 1; i <= 10; i++) { 
             if(i == 10){
                 int[] combination = new int[5];
@@ -49,7 +54,31 @@ public class PossibleStraightDraws {
             drawSums.add(sum);
         }
     }
-    
+    public void generateCombinationsRoyalFlush(){
+        
+            
+        int[] combination = new int[5];
+        int value = 0; 
+        for (int j = 10; j <= 14; j++) {
+            if(j == 14){
+                combination[value] = getValueForCard(1);
+                value++;
+            }else{
+                combination[value] = getValueForCard(j);
+                value++;
+            }
+                    
+        }
+        drawListRoyalFlush.add(combination); 
+           
+        
+    }
+    public void generateCombinationSumsRoyalFlush() {
+        for (int[] combination : drawList) {
+            int sum = Arrays.stream(combination).sum();
+            drawSumsRoyalFlush.add(sum);
+        }
+    }
     // Methode zum Abrufen des Werts einer Karte anhand ihrer Value
     public int getValueForCard(int value) {
         switch (value) {
@@ -88,5 +117,11 @@ public class PossibleStraightDraws {
     }
     public ArrayList<int[]> getDrawList() {
         return drawList;
+    }
+    public ArrayList<Integer> getDrawSumsRoyalFlush() {
+        return drawSumsRoyalFlush;
+    }
+    public ArrayList<int[]> getDrawListRoyalFlush() {
+        return drawListRoyalFlush;
     }
 }
