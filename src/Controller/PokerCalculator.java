@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 
 import javax.swing.table.DefaultTableModel;
 
+import Controller.CustomCompontents.CustomObserver;
 import Model.CardPanel;
 import Model.Deck;
 import Model.Playground;
 import Model.PossibleStraightDraws;
-import View.CustomCompontents.CustomObserver;
 import View.Mainwindow.MainFrame;
 
 public class PokerCalculator implements CustomObserver{
@@ -46,7 +46,7 @@ public class PokerCalculator implements CustomObserver{
         this.deck = Deck.getInstance();
         this.sizeDeck = deck.getAmountCards();
         
-        defaultTableModelChances = new DefaultTableModel(new Object[]{"Chance for Draws", "Percentage"}, 0);
+        defaultTableModelChances = new DefaultTableModel(0 , 2);
         defaultTableModelSzenarios = new DefaultTableModel(new Object[]{"Szenarios"}, 0);
         mainFrame.getCalcPanel().getChanceForDrawTable().setModel(defaultTableModelChances);
         mainFrame.getCalcPanel().getScenarioTable().setModel(defaultTableModelSzenarios);
@@ -60,6 +60,7 @@ public class PokerCalculator implements CustomObserver{
         chanceStraight2();
         findMissingCardsForStraight();
 
+        setIdentifiersTable();
         setChanceForRoyalFlushOnPlaygroundTable();
         setChanceForFullHouseOnPlaygroundTable();
         setChanceForStraightFlushOnPlaygroundTable();
@@ -68,6 +69,7 @@ public class PokerCalculator implements CustomObserver{
         setEmptyTableRow();
         setChanceForFourOfAKindOnPlaygroundTable();
         setChanceForThreeOfAKindOnPlaygroundTable();
+        setChanceForDoublePairOnPlaygroundTable();
         setChanceForPairOnPlaygroundTable();
         setEmptyTableRow();
         setChanceForFourSoloTable();
@@ -525,7 +527,7 @@ public class PokerCalculator implements CustomObserver{
         int countHearts = 0;
         int countDiamonds = 0;
         int countClubs = 0;
-
+        
         for(int i = 0; i < realCardsOnPlayground.length; i++){
             playgroundCardSuits.add(realCardsOnPlayground[i].getSuit());
         }
@@ -1032,6 +1034,78 @@ public class PokerCalculator implements CustomObserver{
         
         return chanceForFourOfAKindOnPlayground;
     }
+    public double chanceForDoublePairsOnPlayground(){
+        double chanceForDoublePairOnPlayground = 0;
+        int equalsCounter = 0;
+        boolean twoOfaKind = false;
+        
+        for(int i = 0; i < realCardsOnPlayground.length;i++){
+            int twoOfaKindInt = 0;
+            for(int j = 0; j < realCardsOnPlayground.length; j++){
+                if(realCardsOnPlayground[i].getValue() == realCardsOnPlayground[j].getValue()){
+                    equalsCounter++;
+                    cardCount++;
+                    twoOfaKindInt++;
+                    if(twoOfaKindInt == 2){
+                        twoOfaKind = true;
+                        break;
+                    }
+                }
+                
+            }
+            
+        }
+        switch (equalsCounter) {
+            case 6 -> {
+                if(twoOfaKind){
+                    chanceForDoublePairOnPlayground =chanceForCombinationsMath(3, 2);
+                }else{
+                    chanceForDoublePairOnPlayground = 0;
+                }
+                
+            }
+            case 5 -> {
+                if (twoOfaKind){
+                    chanceForDoublePairOnPlayground =chanceForCombinationsMath(3, 1);
+                }else{
+                    chanceForDoublePairOnPlayground =chanceForCombinationsMath(3, 5);
+                }
+                
+
+            }
+            case 4 -> {
+                if (twoOfaKind){
+                    chanceForDoublePairOnPlayground =chanceForCombinationsMath(4, 1);
+                    
+                }else{
+                    chanceForDoublePairOnPlayground =chanceForCombinationsMath(3, 4);
+                }
+                
+                
+            }
+            
+            
+            case 3 -> {
+                chanceForDoublePairOnPlayground =chanceForCombinationsMath(3, 3);
+            }
+            case 2 -> {
+                chanceForDoublePairOnPlayground =chanceForCombinationsMath(3, 2);
+            }
+            case 1 -> {
+                chanceForDoublePairOnPlayground =chanceForCombinationsMath(7, 1);
+            }
+            case 0 -> {
+                chanceForDoublePairOnPlayground =chanceForCombinationsMath(8, 1);
+            }
+            default -> {
+                if(chanceForDoublePairOnPlayground >= 100.0 || twoOfaKind){
+                    chanceForDoublePairOnPlayground =100.0;
+                    break;
+                }
+            }
+        }
+        return chanceForDoublePairOnPlayground;
+    }
     public double chanceForPairSolo(){
         
         List<Integer> values = new ArrayList<>();
@@ -1148,6 +1222,9 @@ public class PokerCalculator implements CustomObserver{
     }
     // PAIR SECTION #######################################################################################################################PAIR SECTION#######
     // TABLE SECTION #######################################################################################################################TABLE SECTION#######
+    public void setIdentifiersTable(){
+        defaultTableModelChances.addRow(new Object[]{"Draw Chance", "Percentage"});
+    }
     public void setChanceForRoyalFlushOnPlaygroundTable(){
         defaultTableModelChances.addRow(new Object[]{"Royal Flush Chance for Board", chanceForRoyalFlushOnPlayground() + "%"});
     }
@@ -1172,6 +1249,9 @@ public class PokerCalculator implements CustomObserver{
     }
     public void setChanceForFourSoloTable(){
         defaultTableModelChances.addRow(new Object[]{"Quad Solo",chanceForFourOfAKindSolo() + "%"});
+    }
+    public void setChanceForDoublePairOnPlaygroundTable(){
+        defaultTableModelChances.addRow(new Object[]{"Double Pair Chance for Board", chanceForDoublePairsOnPlayground() + "%"});
     }
     public void setChanceForPairOnPlaygroundTable(){
         defaultTableModelChances.addRow(new Object[]{"Pair Chance for Board", chanceForPairOnPlayground() + "%"});
@@ -1233,13 +1313,14 @@ public class PokerCalculator implements CustomObserver{
     
     @Override
     public void update() {
+        defaultTableModelChances.setRowCount(0);
         getActualCardsOnPlayground();
         sortPlaygroundByValues();
         chanceStraight2();
         findMissingCardsForStraight();
         
-        defaultTableModelChances.setRowCount(0);
         
+        setIdentifiersTable();
         setChanceForRoyalFlushOnPlaygroundTable();
         setChanceForFullHouseOnPlaygroundTable();
         setChanceForStraightFlushOnPlaygroundTable();
@@ -1248,6 +1329,7 @@ public class PokerCalculator implements CustomObserver{
         setEmptyTableRow();
         setChanceForFourOfAKindOnPlaygroundTable();
         setChanceForThreeOfAKindOnPlaygroundTable();
+        setChanceForDoublePairOnPlaygroundTable();
         setChanceForPairOnPlaygroundTable();
         setEmptyTableRow();
         setChanceForFourSoloTable();

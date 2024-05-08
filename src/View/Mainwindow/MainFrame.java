@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
         setTitle("Poker Planner");
         setLocation(0, 220);
         setLayout(new BorderLayout());
-        setBackground(Color.BLACK);
+        
         
         
         
@@ -38,6 +38,7 @@ public class MainFrame extends JFrame {
         
         
         calcPanel = new CalcPanel();
+        
         gamePanel = new GamePanel();
 
        
