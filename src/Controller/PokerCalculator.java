@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 
 import javax.swing.table.DefaultTableModel;
 
-import Controller.CustomCompontents.CustomObserver;
+import CustomCompontents.CustomObserver;
+import CustomCompontents.ProbabilityCellRenderer;
 import Model.CardPanel;
 import Model.Deck;
 import Model.Playground;
@@ -38,48 +39,34 @@ public class PokerCalculator implements CustomObserver{
     private double laterStraightChancePercentage;
     
 
-    public PokerCalculator(Playground playground, MainFrame frame){
+    public PokerCalculator(Playground playground, MainFrame frame, ControllerMainwindow controllerMain) {
         this.playground = playground;
         this.mainFrame = frame;
         cardsForCalc = playground.getCardSlots(); 
         playground.addObserver(this);
         this.deck = Deck.getInstance();
         this.sizeDeck = deck.getAmountCards();
+        defaultTableModelChances = controllerMain.getDefaultTableModelChances();
+        defaultTableModelSzenarios = controllerMain.getDefaultTableModelSzenarios();
         
-        defaultTableModelChances = new DefaultTableModel(0 , 2);
-        defaultTableModelSzenarios = new DefaultTableModel(new Object[]{"Szenarios"}, 0);
-        mainFrame.getCalcPanel().getChanceForDrawTable().setModel(defaultTableModelChances);
-        mainFrame.getCalcPanel().getScenarioTable().setModel(defaultTableModelSzenarios);
+        
         straightChancePercentage = 0;
         laterStraightChancePercentage = 0;
-
+        
         
 
         getActualCardsOnPlayground();
         sortPlaygroundByValues();
         chanceStraight2();
         findMissingCardsForStraight();
-
-        setIdentifiersTable();
-        setChanceForRoyalFlushOnPlaygroundTable();
-        setChanceForFullHouseOnPlaygroundTable();
-        setChanceForStraightFlushOnPlaygroundTable();
-        setChanceForStraightOnPlaygroundTable();
-        setChanceForFlushOnPlaygroundTable();
-        setEmptyTableRow();
-        setChanceForFourOfAKindOnPlaygroundTable();
-        setChanceForThreeOfAKindOnPlaygroundTable();
-        setChanceForDoublePairOnPlaygroundTable();
-        setChanceForPairOnPlaygroundTable();
-        setEmptyTableRow();
-        setChanceForFourSoloTable();
-        setChanceForThreeSoloTable();
-        setChanceForPairSoloTable();
-        setEmptyTableRow();
-        setChanceForPairTotalTable();
+        
+        
+        
+        setChancesForDrawTable();
         
         
     }
+    
     // ROYAL FLUSH SECTION #######################################################################################################################ROYAL FLUSH SECTION#######
     public double chanceForRoyalFlushOnPlayground() {
         double royalFlushChancePercentage = 0;
@@ -1222,49 +1209,68 @@ public class PokerCalculator implements CustomObserver{
     }
     // PAIR SECTION #######################################################################################################################PAIR SECTION#######
     // TABLE SECTION #######################################################################################################################TABLE SECTION#######
-    public void setIdentifiersTable(){
-        defaultTableModelChances.addRow(new Object[]{"Draw Chance", "Percentage"});
-    }
-    public void setChanceForRoyalFlushOnPlaygroundTable(){
-        defaultTableModelChances.addRow(new Object[]{"Royal Flush Chance for Board", chanceForRoyalFlushOnPlayground() + "%"});
-    }
-    public void setChanceForFullHouseOnPlaygroundTable() {
+    
+    public void setChancesForDrawTable(){   
+        
+        defaultTableModelChances.addRow(new Object[]{"Royal Flush Chance" , chanceForRoyalFlushOnPlayground() + "%",});
+        
         defaultTableModelChances.addRow(new Object[]{"Full House Chance for Board", chanceForFullHouseOnPlayground() + "%"});
-    }
-    public void setChanceForStraightFlushOnPlaygroundTable(){
-        defaultTableModelChances.addRow(new Object[]{"Straight Flush Chance for Board", chanceForStraightFlushOnPlayground() + "%"});
-    }
-    public void setChanceForFlushOnPlaygroundTable(){
+        defaultTableModelChances.addRow(new Object[]{"Straight Flush Chance", chanceForStraightFlushOnPlayground() + "%"});
         defaultTableModelChances.addRow(new Object[]{"Flush Chance for Board", chanceForFlushOnPlayground()+ "%"});
-    }
-    public void setChanceForStraightOnPlaygroundTable() {
-        defaultTableModelChances.addRow(new Object[]{"Straight Chance for Board",straightChancePercentage + "%"});
-        defaultTableModelChances.addRow(new Object[]{"Later Straight for Board", laterStraightChancePercentage + "%"});
-    }
-    public void setChanceForPairSoloTable(){
+        defaultTableModelChances.addRow(new Object[]{"Straight Chance",straightChancePercentage + "%"});
+        defaultTableModelChances.addRow(new Object[]{"Later Straight", laterStraightChancePercentage + "%"});
+        defaultTableModelChances.addRow(new Object[]{"Quad Chance for Board", chanceForFourOfAKindOnPlayground() + "%"});
+        defaultTableModelChances.addRow(new Object[]{"Three of a Kind Chance for Board", chanceForThreeOfAKindOnPlayground() + "%"});
+        defaultTableModelChances.addRow(new Object[]{"Two Pair Chance for Board", chanceForDoublePairsOnPlayground() + "%"});
+        defaultTableModelChances.addRow(new Object[]{"Pair Chance for Board", chanceForPairOnPlayground() + "%"});
+        
+        defaultTableModelChances.addRow(new Object[]{"Quad Solo",chanceForFourOfAKindSolo() + "%"});
+        defaultTableModelChances.addRow(new Object[]{"Triple Solo",chanceForThreeOfAKindSolo() + "%"});
         defaultTableModelChances.addRow(new Object[]{"Pair Solo",chanceForPairSolo() + "%"});
     }
-    public void setChanceForThreeSoloTable(){
-        defaultTableModelChances.addRow(new Object[]{"Triple Solo",chanceForThreeOfAKindSolo() + "%"});
-    }
-    public void setChanceForFourSoloTable(){
-        defaultTableModelChances.addRow(new Object[]{"Quad Solo",chanceForFourOfAKindSolo() + "%"});
-    }
-    public void setChanceForDoublePairOnPlaygroundTable(){
-        defaultTableModelChances.addRow(new Object[]{"Double Pair Chance for Board", chanceForDoublePairsOnPlayground() + "%"});
-    }
-    public void setChanceForPairOnPlaygroundTable(){
-        defaultTableModelChances.addRow(new Object[]{"Pair Chance for Board", chanceForPairOnPlayground() + "%"});
-    }
-    public void setChanceForPairTotalTable(){
-        defaultTableModelChances.addRow(new Object[]{"Pair Chance Total", chanceForPairTotal() + "%"});
-    }
-    public void setChanceForThreeOfAKindOnPlaygroundTable(){
-        defaultTableModelChances.addRow(new Object[]{"Triple Chance for Board", chanceForThreeOfAKindOnPlayground() + "%"});
-    }
-    public void setChanceForFourOfAKindOnPlaygroundTable(){
-        defaultTableModelChances.addRow(new Object[]{"Quad Chance for Board", chanceForFourOfAKindOnPlayground() + "%"});
-    }
+    // public void setIdentifiersTable(){
+    //     defaultTableModelChances.addRow(new Object[]{"Draw Chance", "Percentage"});
+    // }
+    // public void setChanceForRoyalFlushOnPlaygroundTable(){
+    //     defaultTableModelChances.addRow(new Object[]{"Royal Flush Chance for Board", chanceForRoyalFlushOnPlayground() + "%"});
+    // }
+    // public void setChanceForFullHouseOnPlaygroundTable() {
+    //     defaultTableModelChances.addRow(new Object[]{"Full House Chance for Board", chanceForFullHouseOnPlayground() + "%"});
+    // }
+    // public void setChanceForStraightFlushOnPlaygroundTable(){
+    //     defaultTableModelChances.addRow(new Object[]{"Straight Flush Chance for Board", chanceForStraightFlushOnPlayground() + "%"});
+    // }
+    // public void setChanceForFlushOnPlaygroundTable(){
+    //     defaultTableModelChances.addRow(new Object[]{"Flush Chance for Board", chanceForFlushOnPlayground()+ "%"});
+    // }
+    // public void setChanceForStraightOnPlaygroundTable() {
+    //     defaultTableModelChances.addRow(new Object[]{"Straight Chance for Board",straightChancePercentage + "%"});
+    //     defaultTableModelChances.addRow(new Object[]{"Later Straight for Board", laterStraightChancePercentage + "%"});
+    // }
+    // public void setChanceForPairSoloTable(){
+    //     defaultTableModelChances.addRow(new Object[]{"Pair Solo",chanceForPairSolo() + "%"});
+    // }
+    // public void setChanceForThreeSoloTable(){
+    //     defaultTableModelChances.addRow(new Object[]{"Triple Solo",chanceForThreeOfAKindSolo() + "%"});
+    // }
+    // public void setChanceForFourSoloTable(){
+    //     defaultTableModelChances.addRow(new Object[]{"Quad Solo",chanceForFourOfAKindSolo() + "%"});
+    // }
+    // public void setChanceForDoublePairOnPlaygroundTable(){
+    //     defaultTableModelChances.addRow(new Object[]{"Double Pair Chance for Board", chanceForDoublePairsOnPlayground() + "%"});
+    // }
+    // public void setChanceForPairOnPlaygroundTable(){
+    //     defaultTableModelChances.addRow(new Object[]{"Pair Chance for Board", chanceForPairOnPlayground() + "%"});
+    // }
+    // public void setChanceForPairTotalTable(){
+    //     defaultTableModelChances.addRow(new Object[]{"Pair Chance Total", chanceForPairTotal() + "%"});
+    // }
+    // public void setChanceForThreeOfAKindOnPlaygroundTable(){
+    //     defaultTableModelChances.addRow(new Object[]{"Triple Chance for Board", chanceForThreeOfAKindOnPlayground() + "%"});
+    // }
+    // public void setChanceForFourOfAKindOnPlaygroundTable(){
+    //     defaultTableModelChances.addRow(new Object[]{"Quad Chance for Board", chanceForFourOfAKindOnPlayground() + "%"});
+    // }
     public void setEmptyTableRow(){
         defaultTableModelChances.addRow(new Object[]{"", ""});
     }
@@ -1318,25 +1324,7 @@ public class PokerCalculator implements CustomObserver{
         sortPlaygroundByValues();
         chanceStraight2();
         findMissingCardsForStraight();
-        
-        
-        setIdentifiersTable();
-        setChanceForRoyalFlushOnPlaygroundTable();
-        setChanceForFullHouseOnPlaygroundTable();
-        setChanceForStraightFlushOnPlaygroundTable();
-        setChanceForStraightOnPlaygroundTable();
-        setChanceForFlushOnPlaygroundTable();
-        setEmptyTableRow();
-        setChanceForFourOfAKindOnPlaygroundTable();
-        setChanceForThreeOfAKindOnPlaygroundTable();
-        setChanceForDoublePairOnPlaygroundTable();
-        setChanceForPairOnPlaygroundTable();
-        setEmptyTableRow();
-        setChanceForFourSoloTable();
-        setChanceForThreeSoloTable();
-        setChanceForPairSoloTable();
-        setEmptyTableRow();
-        setChanceForPairTotalTable();
+        setChancesForDrawTable();
         
 
         mainFrame.getCalcPanel().revalidate();

@@ -2,9 +2,18 @@ package Controller;
 
 
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JTable;
+import javax.swing.border.MatteBorder;
+import javax.swing.plaf.TableHeaderUI;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
+import CustomCompontents.ProbabilityCellRenderer;
 import Model.CardPanel;
 import Model.Deck;
 import Model.Playground;
@@ -17,6 +26,10 @@ public class ControllerMainwindow {
     private SubFrame subFrame;
     private Deck deck;
     private Playground playground;
+    private DefaultTableModel defaultTableModelChances;
+    private DefaultTableModel defaultTableModelSzenarios;
+
+    
 
     
 
@@ -27,7 +40,8 @@ public class ControllerMainwindow {
         this.playground = playground;
         handlePlayground();
         gamePanelActions();
-        System.out.println(deck.getCards().get(2));
+        tableModel();
+        
         
     }
     
@@ -50,6 +64,23 @@ public class ControllerMainwindow {
         mainWindow.getGamePanel().repaint();
         
     }
+    private void tableModel() {
+        
+        defaultTableModelChances = new DefaultTableModel(new Object[]{"Draw Chance","Percentage"}, 0);
+        defaultTableModelSzenarios = new DefaultTableModel(new Object[]{"Szenarios"}, 0);
+
+        mainWindow.getCalcPanel().getChanceForDrawTable().setModel(defaultTableModelChances);
+        mainWindow.getCalcPanel().getScenarioTable().setModel(defaultTableModelSzenarios);
+
+        
+       
+        mainWindow.getCalcPanel().getChanceForDrawTable().getColumnModel().getColumn(0).setPreferredWidth(200);
+        for(int column =0; column < defaultTableModelChances.getColumnCount(); column++){
+            mainWindow.getCalcPanel().getChanceForDrawTable().getColumnModel().getColumn(column).setCellRenderer(new ProbabilityCellRenderer());
+        }
+        
+    }
+
     public void gamePanelActions(){
         for(int i = 0;i <7; i++){
             playground.getCardSlot(i).addMouseListener(removeCard());
@@ -116,6 +147,20 @@ public class ControllerMainwindow {
     public void setPlayground(Playground playground) {
         this.playground = playground;
     }
-    
+    public DefaultTableModel getDefaultTableModelChances() {
+        return defaultTableModelChances;
+    }
+
+    public void setDefaultTableModelChances(DefaultTableModel defaultTableModelChances) {
+        this.defaultTableModelChances = defaultTableModelChances;
+    }
+
+    public DefaultTableModel getDefaultTableModelSzenarios() {
+        return defaultTableModelSzenarios;
+    }
+
+    public void setDefaultTableModelSzenarios(DefaultTableModel defaultTableModelSzenarios) {
+        this.defaultTableModelSzenarios = defaultTableModelSzenarios;
+    }
 }
 

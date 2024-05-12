@@ -1,4 +1,4 @@
-package Controller.CustomCompontents;
+package CustomCompontents;
 
 public interface CustomObserver {
     void update();

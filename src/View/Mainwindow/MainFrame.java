@@ -37,6 +37,7 @@ public class MainFrame extends JFrame {
         };
         
         
+        
         calcPanel = new CalcPanel();
         
         gamePanel = new GamePanel();

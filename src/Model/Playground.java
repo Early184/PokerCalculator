@@ -3,7 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
-import Controller.CustomCompontents.CustomObserver;
+import CustomCompontents.CustomObserver;
 
 public class Playground {
 
