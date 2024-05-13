@@ -19,6 +19,7 @@ import javax.swing.UIManager;
 
 import CustomCompontents.CustomColors;
 import CustomCompontents.CustomHeaderRenderer;
+import CustomCompontents.CustomScrollPane;
 import CustomCompontents.ProbabilityCellRenderer;
 
 
@@ -46,8 +47,24 @@ public class CalcPanel extends JPanel {
         
         chanceForDrawTable = new JTable();
         chanceForDrawTable.setPreferredSize(new Dimension(400, 450));
+        setDrawTable();
+        
+        ProbabilityCellRenderer renderer = new ProbabilityCellRenderer();
+        chanceForDrawTable.setDefaultRenderer(Object.class, renderer);
+        //chanceForDrawTable.getColumnModel().getColumn(1).setPreferredWidth(150);
+        
+        JScrollPane scrollBar = new CustomScrollPane(chanceForDrawTable);
         
         
+        scenarioTable = new JTable();
+        setScenarioTable();
+        JScrollPane pane = new CustomScrollPane(scenarioTable);
+        
+        add(scrollBar, BorderLayout.WEST);
+        add(pane, BorderLayout.CENTER);
+
+    }
+    private void setDrawTable() {
         chanceForDrawTable.setBackground(new Color(0,40,20));
         chanceForDrawTable.setForeground(Color.WHITE);
         chanceForDrawTable.setAutoscrolls(true);
@@ -58,52 +75,27 @@ public class CalcPanel extends JPanel {
         chanceForDrawTable.getTableHeader().setOpaque(false);
         chanceForDrawTable.getTableHeader().setPreferredSize(new Dimension(100,30));
         chanceForDrawTable.getTableHeader().setDefaultRenderer(new CustomHeaderRenderer(chanceForDrawTable.getTableHeader().getDefaultRenderer()));
+        chanceForDrawTable.getTableHeader().setBorder(BorderFactory.createLineBorder(new CustomColors().getColor("Yellow"), 2, false));
         chanceForDrawTable.setEnabled(false);
         chanceForDrawTable.setDragEnabled(false);
         chanceForDrawTable.getTableHeader().setReorderingAllowed(false);
         chanceForDrawTable.getTableHeader().setResizingAllowed(false);
-        
-    
-        
-        
-        ProbabilityCellRenderer renderer = new ProbabilityCellRenderer();
-        chanceForDrawTable.setDefaultRenderer(Object.class, renderer);
-        //chanceForDrawTable.getColumnModel().getColumn(1).setPreferredWidth(150);
-        
-        JScrollPane scrollBar = new JScrollPane(chanceForDrawTable);
-        
-        scrollBar.getVerticalScrollBar().setOpaque(false); 
-        scrollBar.getHorizontalScrollBar().setOpaque(false); 
-        scrollBar.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0)); 
-        scrollBar.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0)); 
-        scrollBar.setPreferredSize(new Dimension(400, 300));
-        scrollBar.setBorder(BorderFactory.createEmptyBorder());
-        
-        
-        
-        scenarioTable = new JTable();
+    }
+    private void setScenarioTable(){
+        scenarioTable.setBackground(new Color(0,40,20));
+        scenarioTable.setForeground(Color.WHITE);
+        scenarioTable.setAutoscrolls(true);
+        scenarioTable.setGridColor(new Color(80,95,27));
+        scenarioTable.getTableHeader().setBorder(BorderFactory.createLineBorder(new CustomColors().getColor("Yellow"), 2, false));
+        scenarioTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 13));
+        scenarioTable.getTableHeader().setPreferredSize(new Dimension(100,30));
+        scenarioTable.getTableHeader().setOpaque(false);
         scenarioTable.setPreferredSize(new Dimension(500, 300));
         scenarioTable.getTableHeader().setResizingAllowed(false);
         scenarioTable.getTableHeader().setBackground(new Color(0,40,20));
         scenarioTable.getTableHeader().setForeground(Color.white);
         scenarioTable.setPreferredScrollableViewportSize(scenarioTable.getPreferredSize());
-        scenarioTable.setBackground(new Color(0,40,20));
         
-        
-        
-       
-        
-        
-
-        
-        add(scrollBar, BorderLayout.WEST);
-        add(new JScrollPane(scenarioTable){
-            @Override
-            public void setPreferredSize(Dimension preferredSize) {
-                setPreferredSize(new Dimension(400, 300));
-            }
-        }, BorderLayout.CENTER);
-
     }
     public JTable getChanceForDrawTable() {
         return chanceForDrawTable;
@@ -117,3 +109,4 @@ public class CalcPanel extends JPanel {
         this.scenarioTable = scenarioTable;
     }
 }
+
