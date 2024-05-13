@@ -108,7 +108,6 @@ public class ControllerSubwindow {
     public void clearButton(){
         subWindow.getRefreshButton().addActionListener(refresh -> {
             
-            
             playground.removeCards();
             mainWindow.getGamePanel().revalidate();
             mainWindow.getGamePanel().repaint();
@@ -145,19 +144,19 @@ public class ControllerSubwindow {
                         protected void paintComponent(Graphics g){
                             super.paintComponent(g);
                                 
-                            g.setColor(new Color(0,0,0,150));
+                            g.setColor(new Color(0,0,0,128));
                             g.fillRoundRect(0, 0, getWidth(), getHeight(), 17, 17);
                         }
                     };
                     overlayPanel.setName("overlayPanel");
                     overlayPanel.setOpaque(false);
-                       
+                    
+                    
                     clickedCard.add(overlayPanel, BorderLayout.CENTER);
                     clickedCard.revalidate(); 
                     clickedCard.repaint();
-                    playground.addCountedCards();
                     
-
+                    playground.addCountedCards();
                 }   
             }
             

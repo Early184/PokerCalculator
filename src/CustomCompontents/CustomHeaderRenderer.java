@@ -19,7 +19,7 @@ public class CustomHeaderRenderer implements TableCellRenderer {
         Component component = defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         if (component instanceof JLabel) {
             JLabel label = (JLabel) component;
-            label.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new CustomColors().getColor("Yellow")));
+            label.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new CustomColors().getColor("Yellow")));
         }
         return component;
     }

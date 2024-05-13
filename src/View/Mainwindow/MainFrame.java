@@ -31,7 +31,7 @@ public class MainFrame extends JFrame {
             protected void paintComponent(Graphics g){
                 super.paintComponent(g);
 
-                Image img = new ImageIcon("src/View/Images/pokerGreen.jpg").getImage();
+                Image img = new ImageIcon("src/View/Images/pokerGreen2.jpg").getImage();
                 g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(),this);
             }
         };

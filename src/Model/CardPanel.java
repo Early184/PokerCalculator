@@ -33,9 +33,10 @@ public class CardPanel extends JPanel {
     protected void paintComponent(Graphics g){
         if(value == 0 && suit.equals("")){
             setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
-            setOpaque(false);
+            g.setColor(new Color(0,0,0,128));
+            g.fillRect(0, 0, getWidth(), getHeight());
         }else{
-            g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(),this);
+            g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(),null);
                 
         }
         super.paintComponent(g);

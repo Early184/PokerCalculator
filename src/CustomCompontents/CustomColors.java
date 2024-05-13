@@ -3,7 +3,7 @@ package CustomCompontents;
 import java.awt.Color;
 
 public class CustomColors {
-    public Color getColor(String colorString) {
+    public static Color getColor(String colorString) {
         switch (colorString) {
             case "Green":
                 return new Color(0, 40, 20);

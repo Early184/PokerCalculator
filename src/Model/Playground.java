@@ -3,7 +3,14 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
 import CustomCompontents.CustomObserver;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 
 public class Playground {
 
@@ -77,11 +84,9 @@ public class Playground {
 
     public CardPanel getNextEmptyCardPanel(){
         for (CardPanel panel: cardSlots){
-            
             if(panel.getSuit() == ""){
                 return panel;
             }
-            
         }
         notifyObservers();
         return null;
