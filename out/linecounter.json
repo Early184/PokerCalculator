@@ -4931,6 +4931,1610 @@
                     "filename": "src\\View\\Subwindow\\SubFrame.java"
                 }
             ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2024-05-16 19:02:16",
+            "filesum": 114,
+            "codesum": 2755,
+            "commentsum": 109,
+            "blanksum": 614,
+            "statistics": {
+                ".md": {
+                    "code": 10,
+                    "comment": 1,
+                    "blank": 8
+                },
+                ".java": {
+                    "code": 2705,
+                    "comment": 108,
+                    "blank": 606
+                },
+                ".stackdump": {
+                    "code": 40,
+                    "comment": 0,
+                    "blank": 0
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 40,
+                    "comment": 0,
+                    "filename": "bash.exe.stackdump"
+                },
+                {
+                    "filename": "bin\\Controller\\ControllerMainwindow$1.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Controller\\ControllerMainwindow.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Controller\\ControllerSubwindow$1$1.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Controller\\ControllerSubwindow$1.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Controller\\ControllerSubwindow$2.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Controller\\ControllerSubwindow.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Controller\\PokerCalculator.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Main.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Model\\Card.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Model\\CardPanel.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Model\\Deck.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Model\\Playground.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\CustomCompontents\\CustomObserver.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\10clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\10diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\10heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\10spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\11clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\11diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\11heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\11spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\12clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\12diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\12heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 8,
+                    "code": 10,
+                    "comment": 1,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 100,
+                    "code": 367,
+                    "comment": 13,
+                    "filename": "src\\Controller\\ControllerMainwindow.java"
+                },
+                {
+                    "blank": 77,
+                    "code": 217,
+                    "comment": 24,
+                    "filename": "src\\Controller\\ControllerSubwindow.java"
+                },
+                {
+                    "blank": 167,
+                    "code": 1134,
+                    "comment": 36,
+                    "filename": "src\\Controller\\PokerCalculator.java"
+                },
+                {
+                    "blank": 15,
+                    "code": 46,
+                    "comment": 4,
+                    "filename": "src\\CustomCompontents\\CustomBorder.java"
+                },
+                {
+                    "blank": 2,
+                    "code": 14,
+                    "comment": 1,
+                    "filename": "src\\CustomCompontents\\CustomColors.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "src\\CustomCompontents\\CustomHeaderRenderer.java"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\CustomCompontents\\CustomObserver.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "src\\CustomCompontents\\CustomScrollPane.java"
+                },
+                {
+                    "blank": 12,
+                    "code": 68,
+                    "comment": 0,
+                    "filename": "src\\CustomCompontents\\CustomTitleBar.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\CustomCompontents\\ImageIconFactory.java"
+                },
+                {
+                    "blank": 13,
+                    "code": 52,
+                    "comment": 6,
+                    "filename": "src\\CustomCompontents\\ProbabilityCellRenderer.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "src\\CustomCompontents\\RoundedBorder.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 25,
+                    "comment": 4,
+                    "filename": "src\\Main.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\Model\\CardEnum.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 75,
+                    "comment": 0,
+                    "filename": "src\\Model\\CardPanel.java"
+                },
+                {
+                    "blank": 16,
+                    "code": 40,
+                    "comment": 0,
+                    "filename": "src\\Model\\Deck.java"
+                },
+                {
+                    "blank": 18,
+                    "code": 92,
+                    "comment": 1,
+                    "filename": "src\\Model\\Playground.java"
+                },
+                {
+                    "blank": 14,
+                    "code": 110,
+                    "comment": 16,
+                    "filename": "src\\Model\\PossibleStraightDraws.java"
+                },
+                {
+                    "blank": 12,
+                    "code": 37,
+                    "comment": 2,
+                    "filename": "src\\View\\disclaimer\\Disclaimer.java"
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\10clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\10diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\10heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\10spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\11clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\11diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\11heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\11spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\12clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\12diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\12heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\12spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\13clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\13diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\13heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\13spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\1clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\1diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\1heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\1spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\2clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\2diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\2heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\2spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\3clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\3diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\3heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\3spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\4clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\4diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\4heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\4spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\5clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\5diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\5heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\5spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\6clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\6diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\6heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\6spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\7clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\7diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\7heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\7spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\8clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\8diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\8heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\8spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\9clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\9diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\9heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\9spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\Disclaimer.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\Disclaimer2.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\pokerGreen.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\resetHovered.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\resetNormal.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\resetPressed.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\TitleBarImages\\close.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\TitleBarImages\\closePressed.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\TitleBarImages\\minimize.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\TitleBarImages\\minimize2.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\TitleBarImages\\minimize2Pressed.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\TitleBarImages\\minimizePressed.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 28,
+                    "code": 84,
+                    "comment": 0,
+                    "filename": "src\\View\\Mainwindow\\CalcPanel.java"
+                },
+                {
+                    "blank": 12,
+                    "code": 32,
+                    "comment": 0,
+                    "filename": "src\\View\\Mainwindow\\GamePanel.java"
+                },
+                {
+                    "blank": 23,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "src\\View\\Mainwindow\\MainFrame.java"
+                },
+                {
+                    "blank": 10,
+                    "code": 11,
+                    "comment": 1,
+                    "filename": "src\\View\\Subwindow\\CardContainer.java"
+                },
+                {
+                    "blank": 44,
+                    "code": 132,
+                    "comment": 0,
+                    "filename": "src\\View\\Subwindow\\SubFrame.java"
+                }
+            ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2024-05-19 11:58:08",
+            "filesum": 115,
+            "codesum": 2883,
+            "commentsum": 112,
+            "blanksum": 632,
+            "statistics": {
+                ".java": {
+                    "code": 2833,
+                    "comment": 111,
+                    "blank": 624
+                },
+                ".md": {
+                    "code": 10,
+                    "comment": 1,
+                    "blank": 8
+                },
+                ".stackdump": {
+                    "code": 40,
+                    "comment": 0,
+                    "blank": 0
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 40,
+                    "comment": 0,
+                    "filename": "bash.exe.stackdump"
+                },
+                {
+                    "filename": "bin\\Controller\\ControllerMainwindow$1.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Controller\\ControllerMainwindow.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Controller\\ControllerSubwindow$1$1.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Controller\\ControllerSubwindow$1.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Controller\\ControllerSubwindow$2.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Controller\\ControllerSubwindow.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Controller\\PokerCalculator.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Main.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Model\\Card.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Model\\CardPanel.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Model\\Deck.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\Model\\Playground.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\CustomCompontents\\CustomObserver.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\10clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\10diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\10heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\10spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\11clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\11diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\11heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\11spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\12clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\12diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin\\View\\Images\\CardImages\\12heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 8,
+                    "code": 10,
+                    "comment": 1,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 101,
+                    "code": 368,
+                    "comment": 13,
+                    "filename": "src\\Controller\\ControllerMainwindow.java"
+                },
+                {
+                    "blank": 77,
+                    "code": 217,
+                    "comment": 24,
+                    "filename": "src\\Controller\\ControllerSubwindow.java"
+                },
+                {
+                    "blank": 167,
+                    "code": 1134,
+                    "comment": 36,
+                    "filename": "src\\Controller\\PokerCalculator.java"
+                },
+                {
+                    "blank": 15,
+                    "code": 46,
+                    "comment": 4,
+                    "filename": "src\\CustomCompontents\\CustomBorder.java"
+                },
+                {
+                    "blank": 2,
+                    "code": 14,
+                    "comment": 1,
+                    "filename": "src\\CustomCompontents\\CustomColors.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "src\\CustomCompontents\\CustomHeaderRenderer.java"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\CustomCompontents\\CustomObserver.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "src\\CustomCompontents\\CustomScrollPane.java"
+                },
+                {
+                    "blank": 12,
+                    "code": 68,
+                    "comment": 0,
+                    "filename": "src\\CustomCompontents\\CustomTitleBar.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\CustomCompontents\\ImageIconFactory.java"
+                },
+                {
+                    "blank": 13,
+                    "code": 52,
+                    "comment": 6,
+                    "filename": "src\\CustomCompontents\\ProbabilityCellRenderer.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "src\\CustomCompontents\\RoundedBorder.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 27,
+                    "comment": 4,
+                    "filename": "src\\Main.java"
+                },
+                {
+                    "blank": 17,
+                    "code": 125,
+                    "comment": 3,
+                    "filename": "src\\Model\\AllDraws.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\Model\\CardEnum.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 75,
+                    "comment": 0,
+                    "filename": "src\\Model\\CardPanel.java"
+                },
+                {
+                    "blank": 16,
+                    "code": 40,
+                    "comment": 0,
+                    "filename": "src\\Model\\Deck.java"
+                },
+                {
+                    "blank": 18,
+                    "code": 92,
+                    "comment": 1,
+                    "filename": "src\\Model\\Playground.java"
+                },
+                {
+                    "blank": 14,
+                    "code": 110,
+                    "comment": 16,
+                    "filename": "src\\Model\\PossibleStraightDraws.java"
+                },
+                {
+                    "blank": 12,
+                    "code": 37,
+                    "comment": 2,
+                    "filename": "src\\View\\disclaimer\\Disclaimer.java"
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\10clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\10diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\10heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\10spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\11clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\11diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\11heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\11spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\12clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\12diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\12heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\12spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\13clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\13diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\13heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\13spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\1clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\1diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\1heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\1spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\2clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\2diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\2heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\2spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\3clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\3diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\3heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\3spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\4clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\4diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\4heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\4spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\5clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\5diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\5heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\5spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\6clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\6diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\6heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\6spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\7clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\7diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\7heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\7spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\8clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\8diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\8heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\8spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\9clubs.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\9diamonds.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\9heart.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\CardImages\\9spades.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\Disclaimer.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\Disclaimer2.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\pokerGreen.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\resetHovered.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\resetNormal.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\resetPressed.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\TitleBarImages\\close.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\TitleBarImages\\closePressed.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\TitleBarImages\\minimize.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\TitleBarImages\\minimize2.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\TitleBarImages\\minimize2Pressed.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\View\\Images\\TitleBarImages\\minimizePressed.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 28,
+                    "code": 84,
+                    "comment": 0,
+                    "filename": "src\\View\\Mainwindow\\CalcPanel.java"
+                },
+                {
+                    "blank": 12,
+                    "code": 32,
+                    "comment": 0,
+                    "filename": "src\\View\\Mainwindow\\GamePanel.java"
+                },
+                {
+                    "blank": 23,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "src\\View\\Mainwindow\\MainFrame.java"
+                },
+                {
+                    "blank": 10,
+                    "code": 11,
+                    "comment": 1,
+                    "filename": "src\\View\\Subwindow\\CardContainer.java"
+                },
+                {
+                    "blank": 44,
+                    "code": 132,
+                    "comment": 0,
+                    "filename": "src\\View\\Subwindow\\SubFrame.java"
+                }
+            ]
         }
     ]
 }

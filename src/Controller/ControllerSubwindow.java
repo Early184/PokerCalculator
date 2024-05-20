@@ -7,8 +7,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import Model.CardPanel;
@@ -45,7 +48,10 @@ public class ControllerSubwindow {
         
     }
     private void createCardContainers(SubFrame subWindow) {
-        createContainers();
+        heart = new CardContainer();
+        clubs = new CardContainer();
+        diamonds = new CardContainer();
+        spades = new CardContainer();
         containerConfig(heart, "heart");
         subWindow.getCardContainerPanel().add(heart);
         containerConfig(clubs, "clubs");
@@ -57,13 +63,7 @@ public class ControllerSubwindow {
         subWindow.getCardContainerPanel().repaint();
         subWindow.getCardContainerPanel().revalidate();
     }
-    public void createContainers(){
-        heart = new CardContainer();
-        clubs = new CardContainer();
-        diamonds = new CardContainer();
-        spades = new CardContainer();
-       
-    }
+    
     public void containerConfig(CardContainer test1, String suit) {
         
         
@@ -118,6 +118,7 @@ public class ControllerSubwindow {
         });
         subWindow.getRefreshButton().addMouseListener(buttonListener());
     }
+    
     public MouseListener cardListener(){
         return new MouseListener() {
         @Override

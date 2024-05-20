@@ -25,16 +25,6 @@ public class Deck {
         amountCards++;
     }
     
-    public void pickCard(CardPanel cardPanel){
-        
-    }
-    public void refillDeck(){
-
-    }
-    public void fillDeck(){
-
-    }
-
     public int getAmountCards() {
         return amountCards;
     }

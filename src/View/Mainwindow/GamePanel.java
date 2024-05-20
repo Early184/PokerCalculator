@@ -16,7 +16,7 @@ public class GamePanel extends JPanel {
     }
 
     public void createPanel(){
-        setPreferredSize(new Dimension(900, 440));
+        setPreferredSize(new Dimension(900, 460));
         setLayout(new FlowLayout(1,0,10));
         setOpaque(false);
         communityCardPanel = new JPanel();

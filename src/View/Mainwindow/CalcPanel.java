@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
-
+import javax.swing.table.DefaultTableColumnModel;
 
 import CustomCompontents.*;
 
@@ -36,18 +36,13 @@ public class CalcPanel extends JPanel {
         setBorder(new RoundedBorder(5, Color.BLACK));
 
         
-        final BufferedImage[] image = new BufferedImage[1];
-        try {
-            File file = new File("src/View/Images/testBildAnwendung1.png");
-            image[0]= ImageIO.read(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
+       
+       
         chanceForDrawTable = new JTable();
         chanceForDrawTable.setPreferredSize(new Dimension(350, 430));
         setDrawTable();
         JScrollPane scrollBar = new CustomScrollPane(chanceForDrawTable);
+        scrollBar.setViewportView(chanceForDrawTable);
         
         JPanel placeholder = new JPanel();
         placeholder.setPreferredSize(new Dimension(20, 300));
@@ -58,8 +53,6 @@ public class CalcPanel extends JPanel {
         scenarioTable = new JTable();
         setScenarioTable();
         JScrollPane pane = new CustomScrollPane(scenarioTable);
-
-        
         
         add(scrollBar, BorderLayout.WEST);
         add(placeholder, BorderLayout.CENTER);
@@ -86,7 +79,7 @@ public class CalcPanel extends JPanel {
 
         ProbabilityCellRenderer renderer = new ProbabilityCellRenderer();
         chanceForDrawTable.setDefaultRenderer(Object.class, renderer);
-        //chanceForDrawTable.getColumnModel().getColumn(1).setPreferredWidth(150);
+        
     }
     private void setScenarioTable(){
         scenarioTable.setPreferredSize(new Dimension(400,300));
@@ -95,11 +88,11 @@ public class CalcPanel extends JPanel {
         scenarioTable.setAutoscrolls(true);
         scenarioTable.setGridColor(new Color(80,95,27));
         scenarioTable.setBorder(new CustomBorder(CustomColors.getColor("Yellow"), 1, 1, 0, 1));
+        
         scenarioTable.getTableHeader().setBorder(BorderFactory.createLineBorder(CustomColors.getColor("Yellow"), 2, false));
         scenarioTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 13));
         scenarioTable.getTableHeader().setPreferredSize(new Dimension(100,30)); 
         scenarioTable.getTableHeader().setOpaque(false);
-        scenarioTable.setPreferredSize(new Dimension(500, 300));
         scenarioTable.getTableHeader().setResizingAllowed(false);
         scenarioTable.getTableHeader().setBackground(CustomColors.getColor("Green"));
         scenarioTable.getTableHeader().setForeground(Color.white);

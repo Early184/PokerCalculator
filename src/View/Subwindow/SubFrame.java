@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import CustomCompontents.CustomTitleBar;
+
 
 
 public class SubFrame extends JDialog {
@@ -28,24 +30,27 @@ public class SubFrame extends JDialog {
     private CardContainer diamonds;
     private CardContainer spades;
     private JButton refreshButton;
+    private CustomTitleBar titleBar;
     
    
    
+    
     
     public SubFrame(){
         setSize(800, 930);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocation(1000,0);
+        setLocation(1100,0);
         setBackground(Color.BLACK);
-        
-        giveSauceToMainPanel();
+        setUndecorated(true);
+        setAlwaysOnTop(true);
+        createUI();
         add(mainPanel);
 
 
         setVisible(true);
 
     }
-    private void giveSauceToMainPanel() {
+    private void createUI() {
         mainPanel = new JPanel(){
             @Override
             protected void paintComponent(Graphics g){
@@ -73,6 +78,19 @@ public class SubFrame extends JDialog {
         header.setOpaque(false);
         headerPanel.add(header);
 
+        JPanel titleBarAndTitleHolder = new JPanel();
+        titleBarAndTitleHolder.setOpaque(false);
+        titleBar = new CustomTitleBar();
+        titleBar.getCloseButton().setVisible(false);
+        titleBar.getOverlayButton().setVisible(false);
+        titleBar.getMinimizeButton().setVisible(false);
+        titleBarAndTitleHolder.setLayout(new BorderLayout());
+        titleBarAndTitleHolder.add(headerPanel, BorderLayout.SOUTH);
+        titleBarAndTitleHolder.add(titleBar, BorderLayout.NORTH);
+
+        
+
+
         cardContainerPanel = new JPanel();
         cardContainerPanel.setLayout(new FlowLayout(1, 10, 0));
         cardContainerPanel.setOpaque(false);
@@ -93,13 +111,11 @@ public class SubFrame extends JDialog {
         refreshButton.setContentAreaFilled(false);
         refreshButton.setFocusPainted(false);
         
-        
-        
 
         buttonHolder.add(refreshButton);
 
 
-        mainPanel.add(headerPanel, BorderLayout.NORTH);
+        mainPanel.add(titleBarAndTitleHolder, BorderLayout.NORTH);
         mainPanel.add(cardContainerPanel, BorderLayout.CENTER);
         mainPanel.add(buttonHolder, BorderLayout.SOUTH);
     }
@@ -150,5 +166,11 @@ public class SubFrame extends JDialog {
     }
     public void setRefreshButton(JButton refreshButton) {
         this.refreshButton = refreshButton;
+    }
+    public CustomTitleBar getTitleBar() {
+        return titleBar;
+    }
+    public void setTitleBar(CustomTitleBar titleBar) {
+        this.titleBar = titleBar;
     }
 }

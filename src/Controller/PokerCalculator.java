@@ -143,7 +143,7 @@ public class PokerCalculator implements CustomObserver{
         }
 
         int outs = outSet.size();
-        if(outs > 0 && cardCount == 7 || outs > 2 && cardCount == 6 || outs == 3 && cardCount == 5 ){
+        if(outs > 0 && cardCount == 7 || outs > 1 && cardCount == 6 || outs > 2 && cardCount == 5 || outs > 3 && cardCount == 4 || outs > 4 && cardCount == 3 || outs > 5 && cardCount == 2){
             royalFlushChancePercentage = 0;
         }else{
             royalFlushChancePercentage = chanceForCombinationsMath(outs, 1);
@@ -229,6 +229,7 @@ public class PokerCalculator implements CustomObserver{
         }
 
         int outs = outSet.size();
+        System.out.println(outSet +" outs");
         if(outs > 0 && cardCount == 7 || outs > 2 && cardCount == 6 || outs == 3 && cardCount == 5 ){
             straightFlushChancePercentage = 0;
         }else{
@@ -576,77 +577,82 @@ public class PokerCalculator implements CustomObserver{
             }
             
         }
-        switch (equalsCounter) {
-            case 6 -> {
-                if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
-                    chanceForPairOnPlayground =100.0;
-                    break;
+        if(cardCount == 7 && !twoOfaKind){
+            chanceForPairOnPlayground = 0;
+        }else{
+            switch (equalsCounter) {
+                case 6 -> {
+                    if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                        chanceForPairOnPlayground =100.0;
+                        break;
+                    }
+                    chanceForPairOnPlayground =chanceForCombinationsMath(3, 6);
                 }
-                chanceForPairOnPlayground =chanceForCombinationsMath(3, 6);
-            }
-            case 5 -> {
-                if (chanceForPairOnPlayground >= 100.0 || twoOfaKind){
-                    chanceForPairOnPlayground =100.0;
-                    break;
+                case 5 -> {
+                    if (chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                        chanceForPairOnPlayground =100.0;
+                        break;
+                    }
+                    chanceForPairOnPlayground =chanceForCombinationsMath(3, 5);
+    
                 }
-                chanceForPairOnPlayground =chanceForCombinationsMath(3, 5);
-
-            }
-            case 4 -> {
-                if (chanceForPairOnPlayground >= 100.0 || twoOfaKind){
-                    chanceForPairOnPlayground =100.0;
-                    break;
-                }
-                chanceForPairOnPlayground =chanceForCombinationsMath(3, 4);
-                
-            }
-            
-            
-            case 3 -> {
-                if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
-                    chanceForPairOnPlayground =100.0;
-                    break;
-                }
-                chanceForPairOnPlayground =chanceForCombinationsMath(3, 3);
-            }
-            case 2 -> {
-                if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
-                    chanceForPairOnPlayground =100.0;
-                    break;
-                }
-                chanceForPairOnPlayground =chanceForCombinationsMath(3, 2);
-            }
-            case 1 -> {
-                if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
-                    chanceForPairOnPlayground =100.0;
-                    break;
-                }
-
-                if (cardCount == 7){
-                    chanceForPairOnPlayground = 0.0;
-                }else{
-                    chanceForPairOnPlayground =chanceForCombinationsMath(1, 3);
-                }
-            
-            }
-            case 0 -> {
-                if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){ 
-                    break;
-                }
-                if(cardCount == 7){
-                    chanceForPairOnPlayground = 0.0;
-                }else{
-                    chanceForPairOnPlayground =chanceForCombinationsMath(4, 1);
+                case 4 -> {
+                    if (chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                        chanceForPairOnPlayground =100.0;
+                        break;
+                    }
+                    chanceForPairOnPlayground =chanceForCombinationsMath(3, 4);
+                    
                 }
                 
-            }
-            default -> {
-                if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
-                    chanceForPairOnPlayground =100.0;
-                    break;
+                
+                case 3 -> {
+                    if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                        chanceForPairOnPlayground =100.0;
+                        break;
+                    }
+                    chanceForPairOnPlayground =chanceForCombinationsMath(3, 3);
+                }
+                case 2 -> {
+                    if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                        chanceForPairOnPlayground =100.0;
+                        break;
+                    }
+                    chanceForPairOnPlayground =chanceForCombinationsMath(3, 2);
+                }
+                case 1 -> {
+                    if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                        chanceForPairOnPlayground =100.0;
+                        break;
+                    }
+    
+                    if (cardCount == 7){
+                        chanceForPairOnPlayground = 0.0;
+                    }else{
+                        chanceForPairOnPlayground =chanceForCombinationsMath(1, 3);
+                    }
+                
+                }
+                case 0 -> {
+                    if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){ 
+                        break;
+                    }
+                    if(cardCount == 7){
+                        chanceForPairOnPlayground = 0.0;
+                    }else{
+                        chanceForPairOnPlayground =chanceForCombinationsMath(4, 1);
+                    }
+                    
+                }
+                default -> {
+                    if(chanceForPairOnPlayground >= 100.0 || twoOfaKind){
+                        chanceForPairOnPlayground =100.0;
+                        break;
+                    }
                 }
             }
         }
+        
         
         return chanceForPairOnPlayground ;
     }
@@ -673,139 +679,144 @@ public class PokerCalculator implements CustomObserver{
             }
             
         }
-        switch (equalsCounter) {
-            case 18 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }
-            }
-            case 17 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }
-            }
-            case 14 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }
-            }
-            case 13 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }else{
-                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(13, 1);
-                }
-            }
-            case 12 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }else{
-                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
-                }
-            }
-            case 11 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }
-            }
-            case 10 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }else{
-                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+        if(cardCount == 7 && !threeOfAKindComb){
+            chanceForThreeOfAKindOnPlayground = 0.0;
+        }else{
+            switch (equalsCounter) {
+                case 18 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
                     }
-            }
-            case 9 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }else{
-                    
-                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(7, 1);
                 }
-            }
-            case 8 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }else{
-                    if(cardCount == 6){
+                case 17 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }
+                }
+                case 14 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }
+                }
+                case 13 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }else{
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(13, 1);
+                    }
+                }
+                case 12 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }else{
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
+                    }
+                }
+                case 11 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }
+                }
+                case 10 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }else{
                         chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
-                    }else if(cardCount == 4){
+                        }
+                }
+                case 9 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }else{
+                        
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(7, 1);
+                    }
+                }
+                case 8 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }else{
+                        if(cardCount == 6){
+                            chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+                        }else if(cardCount == 4){
+                            chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
+                        }
+                    }
+                }
+                case 7 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }else{
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(11, 1);
+                    }
+                }
+                case 6 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }else{
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(8, 1);
+                    }
+                    break;
+                }
+                case 5 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }else{
+                        if(cardCount == 3){
+                            chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(5, 1);
+                        }else if(cardCount == 5){
+                            chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(3, 1);
+                        }
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(5, 1);
+                    }
+                }
+                case 4 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }else{
+                        if(cardCount ==4){
+                            chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(12, 1);
+                        }else if(equalsCounter == 4){
+                            chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+                        }
+                        
+                    }
+                }
+                case 3 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }else{
+                        if(cardCount ==3){
+                            chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(9, 1);
+                        }
+                    }
+                    
+                }
+                case 2 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                        break;
+                    }else{
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
+                    }
+                }
+                case 1 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }else{
+                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(3, 1);
+                    }
+                }
+                case 0 -> {
+                    if (chanceForThreeOfAKindOnPlayground >= 100.0){
+                        chanceForThreeOfAKindOnPlayground = 100.0;
+                    }else{
                         chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
                     }
                 }
             }
-            case 7 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }else{
-                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(11, 1);
-                }
-            }
-            case 6 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }else{
-                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(8, 1);
-                }
-                break;
-            }
-            case 5 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }else{
-                    if(cardCount == 3){
-                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(5, 1);
-                    }else if(cardCount == 5){
-                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(3, 1);
-                    }
-                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(5, 1);
-                }
-            }
-            case 4 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }else{
-                    if(cardCount ==4){
-                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(12, 1);
-                    }else if(equalsCounter == 4){
-                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
-                    }
-                    
-                }
-            }
-            case 3 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }else{
-                    if(cardCount ==3){
-                        chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(9, 1);
-                    }
-                }
-                
-            }
-            case 2 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                    break;
-                }else{
-                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
-                }
-            }
-            case 1 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0 || threeOfAKindComb){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }else{
-                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(3, 1);
-                }
-            }
-            case 0 -> {
-                if (chanceForThreeOfAKindOnPlayground >= 100.0){
-                    chanceForThreeOfAKindOnPlayground = 100.0;
-                }else{
-                    chanceForThreeOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
-                }
-            }
         }
+        
         
         return chanceForThreeOfAKindOnPlayground;
     }
@@ -832,192 +843,197 @@ public class PokerCalculator implements CustomObserver{
             }
             
         }
-        switch (equalsCounter) {
-            case 19 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
+        if(cardCount == 7 && !fourOfAKindComb){
+            chanceForFourOfAKindOnPlayground = 0.0;
+        }else{
+            switch (equalsCounter) {
+                case 19 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }
                 }
-            }
-            case 18 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
-                }
-            }
-            case 17 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }
-            }
-            case 16 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }
-            }
-            case 14 -> {
-                if(chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    if(cardCount == 6){
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(1, 1);
+                case 18 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
                     }else{
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
-                    }
-                    
-                }
-            }
-            case 13 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(3, 1);
-                }
-            }
-            case 12 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    if(cardCount == 6){
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(1, 1);
-                    }else{
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
-                    }
-                    
-                }
-            }
-            case 11 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(7, 1);
-                }
-            }
-            case 10 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    
-                    if(cardCount == 6){
-                        chanceForFourOfAKindOnPlayground = 0;
-                    }else{
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
-                    }
-                    }
-            }
-            case 9 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    if(cardCount == 6){
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
-                    }else {
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(1, 1);
-                    }
-                }
-                    
-                
-            }
-            case 8 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    if(cardCount == 6){
                         chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
-                    }else if(cardCount == 4){
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
                     }
+                }
+                case 17 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }
+                }
+                case 16 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }
+                }
+                case 14 -> {
+                    if(chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }else{
+                        if(cardCount == 6){
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(1, 1);
+                        }else{
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
+                        }
+                        
+                    }
+                }
+                case 13 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }else{
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(3, 1);
+                    }
+                }
+                case 12 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }else{
+                        if(cardCount == 6){
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(1, 1);
+                        }else{
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
+                        }
+                        
+                    }
+                }
+                case 11 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }else{
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(7, 1);
+                    }
+                }
+                case 10 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }else{
+                        
+                        if(cardCount == 6){
+                            chanceForFourOfAKindOnPlayground = 0;
+                        }else{
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
+                        }
+                        }
+                }
+                case 9 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }else{
+                        if(cardCount == 6){
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
+                        }else {
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(1, 1);
+                        }
+                    }
+                        
                     
                 }
-            }
-            case 7 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    if(cardCount == 7){
-                        chanceForFourOfAKindOnPlayground = 0;
-                    }else if(cardCount == 5){
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+                case 8 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }else{
+                        if(cardCount == 6){
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+                        }else if(cardCount == 4){
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
+                        }
+                        
+                    }
+                }
+                case 7 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }else{
+                        if(cardCount == 7){
+                            chanceForFourOfAKindOnPlayground = 0;
+                        }else if(cardCount == 5){
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+                        }
+                        else{
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(11, 1);
+                        }
+                        
+                    }
+                }
+                case 6 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
                     }
                     else{
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(11, 1);
+                        if(cardCount == 6){
+                            chanceForFourOfAKindOnPlayground = 0;
+                        }else{
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(8, 1);
+                        }
+                        
                     }
                     
-                }
-            }
-            case 6 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }
-                else{
-                    if(cardCount == 6){
-                        chanceForFourOfAKindOnPlayground = 0;
-                    }else{
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(8, 1);
-                    }
-                    
-                }
-                
-                break;
-            }
-            case 5 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    if(cardCount ==5){
-                        chanceForFourOfAKindOnPlayground = 0;
-                    }else{
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(5, 1);
-                    }
-                    
-                }
-            }
-            case 4 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    if(cardCount ==4){
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(12, 1);
-                    }else if(equalsCounter == 4){
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
-                    }
-                }
-                
-                
-            }
-            case 3 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    if(cardCount ==3){
-                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(9, 1);
-                    }
-                }
-                
-            }
-            case 2 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
                     break;
-                }else{
-                    chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
                 }
-            }
-            case 1 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(3, 1);
+                case 5 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }else{
+                        if(cardCount ==5){
+                            chanceForFourOfAKindOnPlayground = 0;
+                        }else{
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(5, 1);
+                        }
+                        
+                    }
                 }
-            }
-            case 0 -> {
-                if (chanceForFourOfAKindOnPlayground >= 100.0){
-                    chanceForFourOfAKindOnPlayground = 100.0;
-                }else{
-                    chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
+                case 4 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }else{
+                        if(cardCount ==4){
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(12, 1);
+                        }else if(equalsCounter == 4){
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(2, 1);
+                        }
+                    }
+                    
+                    
+                }
+                case 3 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }else{
+                        if(cardCount ==3){
+                            chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(9, 1);
+                        }
+                    }
+                    
+                }
+                case 2 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                        break;
+                    }else{
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(6, 1);
+                    }
+                }
+                case 1 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0 || fourOfAKindComb){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }else{
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(3, 1);
+                    }
+                }
+                case 0 -> {
+                    if (chanceForFourOfAKindOnPlayground >= 100.0){
+                        chanceForFourOfAKindOnPlayground = 100.0;
+                    }else{
+                        chanceForFourOfAKindOnPlayground +=chanceForCombinationsMath(4, 1);
+                    }
                 }
             }
         }
+        
         
         return chanceForFourOfAKindOnPlayground;
     }
@@ -1025,13 +1041,16 @@ public class PokerCalculator implements CustomObserver{
         double chanceForDoublePairOnPlayground = 0;
         int equalsCounter = 0;
         boolean twoOfaKind = false;
+        int cardCount = 0;
+        
         
         for(int i = 0; i < realCardsOnPlayground.length;i++){
             int twoOfaKindInt = 0;
+            cardCount = 0;
             for(int j = 0; j < realCardsOnPlayground.length; j++){
+                cardCount++;
                 if(realCardsOnPlayground[i].getValue() == realCardsOnPlayground[j].getValue()){
                     equalsCounter++;
-                    cardCount++;
                     twoOfaKindInt++;
                     if(twoOfaKindInt == 2){
                         twoOfaKind = true;
@@ -1042,7 +1061,34 @@ public class PokerCalculator implements CustomObserver{
             }
             
         }
+        
         switch (equalsCounter) {
+            case 11 -> {
+                chanceForDoublePairOnPlayground= 100;
+            }
+            case 10,9 ->{
+                if(cardCount == 7){
+                    chanceForDoublePairOnPlayground = 0;
+                }else{
+                    chanceForDoublePairOnPlayground = 100;
+                }
+                
+            }
+            
+            case 8 -> {
+                if(twoOfaKind && cardCount == 6){
+                    chanceForDoublePairOnPlayground =chanceForCombinationsMath(4, 3);
+                }else if(twoOfaKind && cardCount == 4){
+                    chanceForDoublePairOnPlayground = 100;
+                }         
+            }
+            case 7 -> {
+                if(twoOfaKind){ 
+                    chanceForDoublePairOnPlayground =chanceForCombinationsMath(3, 3);
+                }else{
+                    chanceForDoublePairOnPlayground = 0;
+                }
+            }
             case 6 -> {
                 if(twoOfaKind){
                     chanceForDoublePairOnPlayground =chanceForCombinationsMath(3, 2);
@@ -1085,10 +1131,7 @@ public class PokerCalculator implements CustomObserver{
                 chanceForDoublePairOnPlayground =chanceForCombinationsMath(8, 1);
             }
             default -> {
-                if(chanceForDoublePairOnPlayground >= 100.0 || twoOfaKind){
-                    chanceForDoublePairOnPlayground =100.0;
-                    break;
-                }
+                chanceForDoublePairOnPlayground = 0;
             }
         }
         return chanceForDoublePairOnPlayground;
@@ -1228,49 +1271,7 @@ public class PokerCalculator implements CustomObserver{
         defaultTableModelChances.addRow(new Object[]{"Triple Solo",chanceForThreeOfAKindSolo() + "%"});
         defaultTableModelChances.addRow(new Object[]{"Pair Solo",chanceForPairSolo() + "%"});
     }
-    // public void setIdentifiersTable(){
-    //     defaultTableModelChances.addRow(new Object[]{"Draw Chance", "Percentage"});
-    // }
-    // public void setChanceForRoyalFlushOnPlaygroundTable(){
-    //     defaultTableModelChances.addRow(new Object[]{"Royal Flush Chance for Board", chanceForRoyalFlushOnPlayground() + "%"});
-    // }
-    // public void setChanceForFullHouseOnPlaygroundTable() {
-    //     defaultTableModelChances.addRow(new Object[]{"Full House Chance for Board", chanceForFullHouseOnPlayground() + "%"});
-    // }
-    // public void setChanceForStraightFlushOnPlaygroundTable(){
-    //     defaultTableModelChances.addRow(new Object[]{"Straight Flush Chance for Board", chanceForStraightFlushOnPlayground() + "%"});
-    // }
-    // public void setChanceForFlushOnPlaygroundTable(){
-    //     defaultTableModelChances.addRow(new Object[]{"Flush Chance for Board", chanceForFlushOnPlayground()+ "%"});
-    // }
-    // public void setChanceForStraightOnPlaygroundTable() {
-    //     defaultTableModelChances.addRow(new Object[]{"Straight Chance for Board",straightChancePercentage + "%"});
-    //     defaultTableModelChances.addRow(new Object[]{"Later Straight for Board", laterStraightChancePercentage + "%"});
-    // }
-    // public void setChanceForPairSoloTable(){
-    //     defaultTableModelChances.addRow(new Object[]{"Pair Solo",chanceForPairSolo() + "%"});
-    // }
-    // public void setChanceForThreeSoloTable(){
-    //     defaultTableModelChances.addRow(new Object[]{"Triple Solo",chanceForThreeOfAKindSolo() + "%"});
-    // }
-    // public void setChanceForFourSoloTable(){
-    //     defaultTableModelChances.addRow(new Object[]{"Quad Solo",chanceForFourOfAKindSolo() + "%"});
-    // }
-    // public void setChanceForDoublePairOnPlaygroundTable(){
-    //     defaultTableModelChances.addRow(new Object[]{"Double Pair Chance for Board", chanceForDoublePairsOnPlayground() + "%"});
-    // }
-    // public void setChanceForPairOnPlaygroundTable(){
-    //     defaultTableModelChances.addRow(new Object[]{"Pair Chance for Board", chanceForPairOnPlayground() + "%"});
-    // }
-    // public void setChanceForPairTotalTable(){
-    //     defaultTableModelChances.addRow(new Object[]{"Pair Chance Total", chanceForPairTotal() + "%"});
-    // }
-    // public void setChanceForThreeOfAKindOnPlaygroundTable(){
-    //     defaultTableModelChances.addRow(new Object[]{"Triple Chance for Board", chanceForThreeOfAKindOnPlayground() + "%"});
-    // }
-    // public void setChanceForFourOfAKindOnPlaygroundTable(){
-    //     defaultTableModelChances.addRow(new Object[]{"Quad Chance for Board", chanceForFourOfAKindOnPlayground() + "%"});
-    // }
+    
     public void setEmptyTableRow(){
         defaultTableModelChances.addRow(new Object[]{"", ""});
     }
