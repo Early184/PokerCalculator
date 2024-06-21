@@ -8,7 +8,7 @@ To run this project locally, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/poker-probability-calculator.git
+   git clone https://github.com/Early184/PokerCalculator.git
    cd poker-probability-calculator
 
 2. **Set up your development environment:**
