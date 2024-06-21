@@ -12,9 +12,9 @@ import View.disclaimer.Disclaimer;
 public class Main {
     public static void main(String[] args) {
         Disclaimer disclaimer = new Disclaimer();
-        disclaimer.showDisclaimer(); // Disclaimer-Fenster anzeigen
+        disclaimer.showDisclaimer(); // show disclaimer
 
-        // Timer für das automatische Schließen des Disclaimer-Fensters nach 5 Sekunden erstellen
+        // 5 seconds timer for disclaimer
         Timer timer = new Timer(5000, e -> {
             disclaimer.closeDisclaimer();
             MainFrame frame = new MainFrame();
@@ -26,8 +26,8 @@ public class Main {
             PokerCalculator calc = new PokerCalculator(playground, frame, controllerMain); 
             AllDraws allDraws = new AllDraws();
         });
-        timer.setRepeats(false); // Timer nur einmalig auslösen
-        timer.start(); // Timer starten
+        timer.setRepeats(false); // dont repeat timer
+        timer.start(); // timer start
         
         
     }

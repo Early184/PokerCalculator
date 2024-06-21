@@ -71,16 +71,17 @@ public class PokerCalculator implements CustomObserver{
     public double chanceForRoyalFlushOnPlayground() {
         double royalFlushChancePercentage = 0;
        
-        // Listen For Straight
+        // lists for straight
         possibleStraightDraws = new PossibleStraightDraws();
         ArrayList<Integer> possibleDraws = possibleStraightDraws.getDrawSumsRoyalFlush();
         
-        //Map für die Playground Karten
+        //map for playgroundCards
         ArrayList <Integer> playgroundValuesHearts = new ArrayList<>();
         ArrayList <Integer> playgroundValuesSpades = new ArrayList<>();
         ArrayList <Integer> playgroundValuesDiamonds = new ArrayList<>();
         ArrayList <Integer> playgroundValuesClubs = new ArrayList<>();
-        //Playground Karten in ein Array geben als Binäre Werte
+
+        //give playgroundCards in an array with binarynumbers
         for (CardPanel cardPanel : realCardsOnPlayground) {
             int bitValue = possibleStraightDraws.getValueForCard(cardPanel.getValue());
             switch (cardPanel.getSuit()) {
@@ -90,7 +91,8 @@ public class PokerCalculator implements CustomObserver{
                 case "clubs": playgroundValuesClubs.add(bitValue); break;
             }
         }
-        //Ausgabe der fehlenden Karten für alle Kombinationen
+
+        //consoling missing cards for combinations
         ArrayList<ArrayList<Integer>> missingDrawCards = new ArrayList<>();
 
             int[] combination = possibleStraightDraws.getDrawListRoyalFlush().get(0);
@@ -101,8 +103,7 @@ public class PokerCalculator implements CustomObserver{
             combinationsParsedHearts.removeAll(playgroundValuesHearts);
             missingDrawCards.add(combinationsParsedHearts);
             
-        
-        
+
             ArrayList<Integer> combinationsParsedSpades = new ArrayList<>();
             for(int number : combination){
                 combinationsParsedSpades.add(number);
@@ -110,8 +111,7 @@ public class PokerCalculator implements CustomObserver{
             combinationsParsedSpades.removeAll(playgroundValuesSpades);
             missingDrawCards.add(combinationsParsedSpades);
             
-        
-        
+
             ArrayList<Integer> combinationsParsedDiamonds = new ArrayList<>();
             for(int number : combination){
                 combinationsParsedDiamonds.add(number);
@@ -119,8 +119,7 @@ public class PokerCalculator implements CustomObserver{
             combinationsParsedDiamonds.removeAll(playgroundValuesDiamonds);
             missingDrawCards.add(combinationsParsedDiamonds);
             
-        
-        
+
             ArrayList<Integer> combinationsParsedClubs = new ArrayList<>();
             for(int number : combination){
                 combinationsParsedClubs.add(number);
@@ -128,10 +127,8 @@ public class PokerCalculator implements CustomObserver{
             combinationsParsedClubs.removeAll(playgroundValuesClubs);
             missingDrawCards.add(combinationsParsedClubs);
             
-        
-        
 
-        //Ausgabe der Kombinationen mit der geringsten Anzahl Karten
+        //consoling combinations with most less missing cards
         ArrayList<Integer> smallestList = missingDrawCards.stream().min(Comparator.comparingInt(ArrayList::size)).orElse(null);
         List<ArrayList<Integer>> smallestCombinations = missingDrawCards.stream().filter(draw -> draw.size() == smallestList.size()).collect(Collectors.toList());
         Set<Integer> outSet = new HashSet<Integer>();
@@ -149,7 +146,6 @@ public class PokerCalculator implements CustomObserver{
             royalFlushChancePercentage = chanceForCombinationsMath(outs, 1);
         }
         
-       
         return royalFlushChancePercentage;
     }
     // ROYAL FLUSH SECTION #######################################################################################################################ROYAL FLUSH SECTION#######
@@ -157,16 +153,16 @@ public class PokerCalculator implements CustomObserver{
     public double chanceForStraightFlushOnPlayground() {
         double straightFlushChancePercentage = 0;
        
-        // Listen For Straight
+        // lists for straight
         possibleStraightDraws = new PossibleStraightDraws();
         ArrayList<Integer> possibleDraws = possibleStraightDraws.getDrawSums();
         
-        //Map für die Playground Karten
+        //map for playgroundcards
         ArrayList <Integer> playgroundValuesHearts = new ArrayList<>();
         ArrayList <Integer> playgroundValuesSpades = new ArrayList<>();
         ArrayList <Integer> playgroundValuesDiamonds = new ArrayList<>();
         ArrayList <Integer> playgroundValuesClubs = new ArrayList<>();
-        //Playground Karten in ein Array geben als Binäre Werte
+        //give playgroundcards in an array as binarynumbers
         for (CardPanel cardPanel : realCardsOnPlayground) {
             int bitValue = possibleStraightDraws.getValueForCard(cardPanel.getValue());
             switch (cardPanel.getSuit()) {
@@ -176,7 +172,7 @@ public class PokerCalculator implements CustomObserver{
                 case "clubs": playgroundValuesClubs.add(bitValue); break;
             }
         }
-        //Ausgabe der fehlenden Karten für alle Kombinationen
+        //consoling missing cards for combinations
         ArrayList<ArrayList<Integer>> missingDrawCards = new ArrayList<>();
 
         for(int[]combination : possibleStraightDraws.getDrawList()){
@@ -217,7 +213,7 @@ public class PokerCalculator implements CustomObserver{
         }
         
 
-        //Ausgabe der Kombinationen mit der geringsten Anzahl Karten
+        //consoling combo with most less missing cards
         ArrayList<Integer> smallestList = missingDrawCards.stream().min(Comparator.comparingInt(ArrayList::size)).orElse(null);
         List<ArrayList<Integer>> smallestCombinations = missingDrawCards.stream().filter(draw -> draw.size() == smallestList.size()).collect(Collectors.toList());
         Set<Integer> outSet = new HashSet<Integer>();
@@ -245,16 +241,16 @@ public class PokerCalculator implements CustomObserver{
         possibleStraightDraws = new PossibleStraightDraws();
         ArrayList<Integer> possibleDraws = possibleStraightDraws.getDrawSums();
         
-        //Summe der Karten auf dem Spielfeld Binär
+        //sum
         int sumOfCardsOnPlayground = 0;
         ArrayList <Integer> playgroundValues = new ArrayList<>();
-        //Playground Karten in ein Array geben als Binäre Werte
+        //playgroundCards into an array as binary numbers
         for (CardPanel cardPanel : realCardsOnPlayground) {
             int bitValue = possibleStraightDraws.getValueForCard(cardPanel.getValue());
             playgroundValues.add(bitValue);
             sumOfCardsOnPlayground += bitValue;
         }
-        //Ausgabe der fehlenden Karten für alle Kombinationen
+        //consoling missing cards for combinations
         ArrayList<ArrayList<Integer>> missingDrawCards = new ArrayList<>();
         for(int[]combination : possibleStraightDraws.getDrawList()){
             ArrayList<Integer> combinationsParsed = new ArrayList<>();
@@ -269,7 +265,7 @@ public class PokerCalculator implements CustomObserver{
         System.out.println("Summe der Karten auf dem Spielfeld:" + sumOfCardsOnPlayground);
         System.out.println("Aktuell auf dem Feld: " + playgroundValues);
 
-        //Ausgabe der Kombinationen mit der geringsten Anzahl Karten
+        //get combination with smallest missing card amount
         ArrayList<Integer> smallestList = missingDrawCards.stream().min(Comparator.comparingInt(ArrayList::size)).orElse(null);
         List<ArrayList<Integer>> smallestCombinations = missingDrawCards.stream().filter(draw -> draw.size() == smallestList.size()).collect(Collectors.toList());
         Set<Integer> outSet = new HashSet<Integer>();
@@ -360,7 +356,7 @@ public class PokerCalculator implements CustomObserver{
         return nearestCombinationSum;
     }
     
-    // Überprüfen ob eine Karte auf dem Spielfeld vorhanden ist
+    // check if card is on Playground
     private boolean isCardPresent(int cardValue) {
         for (CardPanel cardPanel : realCardsOnPlayground) {
             if (possibleStraightDraws.getValueForCard(cardPanel.getValue()) == cardValue) {
@@ -370,7 +366,7 @@ public class PokerCalculator implements CustomObserver{
         return false;
     }
     
-    // Summe der Kartenwerte in einer Kombination berechnen
+    // sum of cardvalues in a combination
     private int sumCardValues(int[] combination) {
         int sum = 0;
         for (int cardValue : combination) {
@@ -1237,11 +1233,11 @@ public class PokerCalculator implements CustomObserver{
     
         for (int i = 0; i < sizeDeck - realCardsOnPlayground.length; i++) {
             int remainingCards = sizeDeck - realCardsOnPlayground.length - i;
-            // Berechne die Wahrscheinlichkeit, dass eine der verbleibenden Karten ein Paar bildet
+            // calculate probability for getting a card for pair 
             chanceForPairInDeck += (chanceForCombinationsMath(1, remainingCards) / 100.0);
         }
     
-        // Gesamtwahrscheinlichkeit berechnen, unter Berücksichtigung der Überlappung
+        // complete probability for pair chance/ prototype
         double totalChance = chanceForPairOnPlayground + chanceForPairInDeck - (chanceForPairOnPlayground * chanceForPairInDeck);
         if(chanceForPairOnPlayground() == 100.0){
             return totalChance = 100;
@@ -1286,11 +1282,11 @@ public class PokerCalculator implements CustomObserver{
         return Double.parseDouble(formattedResult.replace(",", "."));
     }
      private void sortPlaygroundByValues() {
-        // Karten im Deck
+        // cards in Deck
         deckCount = sizeDeck - realCardsOnPlayground.length;
         System.out.println("Karten im Deck: " + deckCount);
 
-        // Sortiere die Karten nach Wert
+        // sort cards per value
         Arrays.sort(realCardsOnPlayground, Comparator.comparingInt(CardPanel::getValue));
     }
 
@@ -1302,7 +1298,7 @@ public class PokerCalculator implements CustomObserver{
             }
         }
         
-        // Erstelle ein Array, um nur die Karten im Playground zu halten
+        // create an array for holding cardsonplayground
         realCardsOnPlayground = new CardPanel[cardCount];
         int index = 0;
         for(CardPanel cardPanel : cardsForCalc){

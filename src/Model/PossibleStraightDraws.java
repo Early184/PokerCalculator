@@ -20,7 +20,7 @@ public class PossibleStraightDraws {
         generateCombinationsRoyalFlush();
         generateCombinationSumsRoyalFlush();
     }
-    //Schleife zur Generierung der Kombinationen
+    //loop for generating all combinations
     public void generateCombinationsStraight(){
            for (int i = 1; i <= 10; i++) { 
             if(i == 10){
@@ -47,7 +47,7 @@ public class PossibleStraightDraws {
             
         }
     }
-    // Summe jeder Kombination
+    // sum of every combination
     public void generateCombinationSums() {
         for (int[] combination : drawList) {
             int sum = Arrays.stream(combination).sum();
@@ -79,7 +79,7 @@ public class PossibleStraightDraws {
             drawSumsRoyalFlush.add(sum);
         }
     }
-    // Methode zum Abrufen des Werts einer Karte anhand ihrer Value
+    // method for setting card values as binary numbers
     public int getValueForCard(int value) {
         switch (value) {
             case 1: // ACE

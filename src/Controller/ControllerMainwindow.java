@@ -280,7 +280,7 @@ public class ControllerMainwindow {
         mainWindow.addWindowListener(new WindowAdapter() {
             @Override
             public void windowStateChanged(WindowEvent e) {
-                // Überprüfen, ob der Frame minimiert ist
+                // check if frame is minimized
                 if ((e.getNewState() & Frame.ICONIFIED) == Frame.ICONIFIED) {
                     subFrame.setVisible(false);
                 } else {

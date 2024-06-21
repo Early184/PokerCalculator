@@ -69,13 +69,13 @@ public class ControllerSubwindow {
         
         GridBagConstraints gbc = new GridBagConstraints();
         
-        // grid position fängt bei 0/0 xy an
+        // grid position starts at 0/0 xy 
         gbc.gridx = 0;
         gbc.gridy = 12;
-        // der nächste container hat eine breite von 1 grid
+        // next container got 1 grid in width
         gbc.weightx = 1.0;
         
-        //nummer der zellen in einer col
+        // number of cells in col
         gbc.gridheight = 1;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.BOTH;
@@ -84,14 +84,14 @@ public class ControllerSubwindow {
         for(int i = 1; i < 14; i++){
             if(i == 1){
                 gbc.insets = new Insets(0, 0, 0, 0);
-                //beim ersten die gridhoehe auf 4 stellen
+                //first item height of 4
                 gbc.weighty = 4.0;
                 CardPanel cardPanel = new CardPanel(i,suit);
                 cardPanel.addMouseListener(cardListener());
                 deck.addCard(cardPanel);
                 
                 test1.add(deck.getLastCardPanel(), gbc);
-                gbc.gridy--;// grid y inkrementiert um zeile in grid zu springen
+                gbc.gridy--;// grid y increment for jumping in cell
             }else{
                 gbc.insets = new Insets(0, 0, -160, 0);
                 gbc.weighty = 1.0;
@@ -173,55 +173,43 @@ public class ControllerSubwindow {
         
         }
 
-
-       
-
         @Override
         public void mouseEntered(MouseEvent e) {
+            //check for first card
             if(((CardPanel)e.getComponent()).getValue() !=1){
-                // Layout des übergeordneten Panels
+                // get layout from parent panel
                 GridBagLayout layout = (GridBagLayout) e.getComponent().getParent().getLayout();
                 GridBagConstraints gbc = layout.getConstraints(e.getComponent());
 
-                // Erhalten der aktuellen Insets
+                // get actual insets
                 Insets insets = gbc.insets;
-                // Erstellen neuer Insets, um die Karte nach oben zu verschieben
+                // defining new insets for getting cards go up
                 Insets newInsets = new Insets(insets.top - 20, insets.left, insets.bottom, insets.right);
-                // Setzen der neuen Insets
+                // set new insets
                 gbc.insets = newInsets;
 
-                // Aktualisieren der Constraints im Layout
+                // set new constraints in layout
                 layout.setConstraints(e.getComponent(), gbc);
 
-                // Neuzeichnen des übergeordneten Panels
+                // re-draw parent
                 e.getComponent().getParent().revalidate();
                 e.getComponent().getParent().repaint();
             }
             if(((CardPanel)e.getComponent()).getValue() == 13){
-            // Layout des übergeordneten Panels
+            
             GridBagLayout layout = (GridBagLayout) e.getComponent().getParent().getLayout();
             GridBagConstraints gbc = layout.getConstraints(e.getComponent());
 
-            // Erhalten der aktuellen Insets
             Insets insets = gbc.insets;
-            // Erstellen neuer Insets, um die Karte nach oben zu verschieben
             Insets newInsets = new Insets(insets.top - 30, insets.left, insets.bottom, insets.right);
-            // Setzen der neuen Insets
+            
             gbc.insets = newInsets;
 
-            // Aktualisieren der Constraints im Layout
             layout.setConstraints(e.getComponent(), gbc);
 
-            // Neuzeichnen des übergeordneten Panels
             e.getComponent().getParent().revalidate();
             e.getComponent().getParent().repaint();
-
             }
-            
-                
-
-            
-            
         }
 
 
@@ -244,30 +232,23 @@ public class ControllerSubwindow {
                 e.getComponent().getParent().repaint();
             }
             if(((CardPanel)e.getComponent()).getValue() == 13){
-                // Layout des übergeordneten Panels
                 GridBagLayout layout = (GridBagLayout) e.getComponent().getParent().getLayout();
                 GridBagConstraints gbc = layout.getConstraints(e.getComponent());
-        
-                // Erhalten der aktuellen Insets
+
                 Insets insets = gbc.insets;
-                // Erstellen neuer Insets, um die Karte nach oben zu verschieben
+               
                 Insets newInsets = new Insets(insets.top + 30, insets.left, insets.bottom, insets.right);
-                // Setzen der neuen Insets
                 gbc.insets = newInsets;
         
-                // Aktualisieren der Constraints im Layout
+                
                 layout.setConstraints(e.getComponent(), gbc);
-        
-                // Neuzeichnen des übergeordneten Panels
+    
                 e.getComponent().getParent().revalidate();
                 e.getComponent().getParent().repaint();
-        
                 }
-        
-            
-            
         }};
     }
+    
     public MouseListener buttonListener(){
         return new MouseListener() {
 

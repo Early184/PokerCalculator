@@ -23,14 +23,14 @@ public class ProbabilityCellRenderer extends DefaultTableCellRenderer {
 
             if (!stringValue.isEmpty()) {
                 String cleanedValue = stringValue.replaceAll("[^0-9.]", "");
-                // Prüfen, ob die bereinigte Zeichenkette keine Zahlen enthält
+                // check if cleaned value is empty
                 if (cleanedValue.isEmpty()) {
-                    // Wenn keine Zahlen enthalten sind
+                    // set cells white
                     cellComponent.setForeground(Color.WHITE); 
                     cellComponent.setHorizontalAlignment(SwingConstants.LEFT);
                     cellComponent.setBorder(new EmptyBorder(0, 10, 0, 0));
                 } else {
-                    // Überprüfen, ob die bereinigte Zeichenkette nicht leer ist
+                    
                     try {
                         double doubleValue = Double.parseDouble(cleanedValue);
                         cellComponent.setForeground(getForegroundForProbability(doubleValue));
@@ -40,7 +40,7 @@ public class ProbabilityCellRenderer extends DefaultTableCellRenderer {
                             
                         }
                     } catch (NumberFormatException e) {
-                        // Fehlerbehandlung für ungültige numerische Zeichenketten
+                        // debugging
                         System.out.println("NumberFormatException: " + e.getMessage());
                         
                         cellComponent.setForeground(table.getForeground());
@@ -55,9 +55,8 @@ public class ProbabilityCellRenderer extends DefaultTableCellRenderer {
     }
 
 
-    // Methode zur Anpassung der Schriftfarbe basierend auf der Wahrscheinlichkeit
+    // method for changing cell color based on value in it
     private Color getForegroundForProbability(double probability) {
-        // Schriftfarbe basierend auf den Wahrscheinlichkeiten anpassen
         if (probability < 20) {
             return Color.RED;
         } else if (probability < 35) {
