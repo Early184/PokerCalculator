@@ -15,18 +15,20 @@ To run this project locally, follow these steps:
 
     Ensure Java Development Kit (JDK) is installed on your system.
     Compile the Java code using command line:
-        javac *.java
+    ```bash
+    javac *.java
 3. **Run the application:**
-        java Main
+    ```bash
+    java Main
 
-**Features**
+## Features
 
     Calculate probabilities for Texas Holdem Draws.
     Graphical user interface (GUI) for easy interaction (swing).
     Developed in Java, runs on any system with java support
 
 
-**Contributing**
+## Contributing
 Contributions are welcome! If you'd like to add features, fix bugs, or improve the code, please follow these steps:
 
     1. Fork the repository.
@@ -35,5 +37,5 @@ Contributions are welcome! If you'd like to add features, fix bugs, or improve t
     4. Push to the branch (git push origin feature/your-feature-name).
     5. Create a new Pull Request.
 
-**License**
+## License
 This project is licensed under the MIT License - see the LICENSE file for details.
