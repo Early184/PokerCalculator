@@ -1,7 +1,7 @@
 # Poker Probability Calculator
 
 ## Overview
-The Poker Probability Calculator is a Java-based application with a graphical user interface (GUI) designed to compute probabilities and calculate win-chances. It helps poker players analyze their chances of completing draws such as flushes and straights. At this time its a prototype but the probabilities for reaching common hands are almost done.
+The Poker Probability Calculator is a Java-based application with a graphical user interface (GUI) designed to compute probabilities and calculate win-chances in Texas Hold'em. It helps poker players analyze their chances of completing draws such as flushes and straights. At this time its a prototype but the probabilities for reaching common hands are almost done.
 
 ## Installation
 To run this project locally, follow these steps:
